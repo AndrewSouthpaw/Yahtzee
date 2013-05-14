@@ -38,21 +38,27 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		int[][] scorecard = new int[N_CATEGORIES + 1][nPlayers + 1];
 		int round = 0;
 		while (!gameOver) {
+			playRound(round);
+			round++;
+			if (round == N_SCORING_CATEGORIES) gameOver = true;
 			
 			
-			
-			
+			/*
 			IODialog dialog = getDialog();
 			int player = 1;
 			int score = 15;
 			int category = display.waitForPlayerToSelectCategory();
 			display.updateScorecard(category, player, score);
 			display.printMessage("Thanks for entering a score.");
-			waitForClick();
+			*/
 			
-			round++;
-			if (round == N_SCORING_CATEGORIES) gameOver = true;
-			
+		}
+		
+	}
+	
+	private void playRound(int round) {
+		for (int playerTurn = 1; playerTurn <= nPlayers; playerTurn++) {
+			playTurn(playerTurn);
 		}
 		
 	}
