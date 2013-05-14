@@ -23,13 +23,14 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 		display = new YahtzeeDisplay(getGCanvas(), playerNames);
 		playGame();
-		String response = dialog.readLine("Would you like to play again?");
 		/*
+		String response = dialog.readLine("Would you like to play again?");
 		if(response.startsWith("Y") || response.startsWith("y")) {
 			clearBoard();
 			run();
 		}
 		*/	
+		display.printMessage("Thanks for playing!");
 	}
 
 	private void playGame() {
