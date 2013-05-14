@@ -28,15 +28,25 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		if(response.startsWith("Y") || response.startsWith("y")) {
 			clearBoard();
 			run();
-		*/	
 		}
+		*/	
 	}
 
 	private void playGame() {
 		boolean gameOver = false;
-		//while (!gameOver) {
+		int[][] scorecard = new int[N_CATEGORIES + 1][nPlayers + 1];
+		while (!gameOver) {
+			IODialog dialog = getDialog();
+			int player = dialog.readInt("Enter a player number");
+			int score = dialog.readInt("Enter a score");
+			int category = display.waitForPlayerToSelectCategory();
+			display.updateScorecard(category, player, score);
+			display.printMessage("Thanks for entering a score.");
+			waitForClick();
 			
-		//}
+			
+			
+		}
 		
 	}
 		
