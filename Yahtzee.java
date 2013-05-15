@@ -75,9 +75,12 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 		display.printMessage("You are done rolling.");
 		int category = display.waitForPlayerToSelectCategory();  // *** include error checking later
-		//int score = calculateCategoryScore(category, dice);
+		int score = calculateCategoryScore(category, dice);
+		
+		/*
 		IODialog dialog = getDialog();
 		int score = dialog.readInt("Enter a score:");
+		*/
 		display.updateScorecard(category, player, score);
 	}
 	
@@ -90,11 +93,32 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			}
 		}
 	}
+	
+	private int calculateCategoryScore(int category, int[] dice) {
+		int score = 0;
+		boolean b = YahtzeeMagicStub.checkCategory(dice, category);
+		if (b) {
+			
+			display.printMessage("You picked a good category.");
+			return score;
+		} else {
+			String str = dialog.readLine("This looks like an invalid category. Are you sure?");
+			if (str.startsWith("y") || str.startsWith("Y")) {
+				return score;
+			} else {
+				category = display.waitForPlayerToSelectCategory();
+				score = calculateCategoryScore(category, dice);
+				display.printMessage("You chose a different category.");
+				return score;
+			}
+		}
+	}
 		
 /* Private instance variables */
 	private int nPlayers;
 	private String[] playerNames;
 	private YahtzeeDisplay display;
 	private RandomGenerator rgen = new RandomGenerator();
+	private IODialog dialog = getDialog();
 
 }
