@@ -68,7 +68,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		int[] dice = new int[N_DICE];
 		display.waitForPlayerToClickRoll(player);
 		for (int rolls = 0; rolls < MAX_ROLLS; rolls++) {
-			rollDice(dice);
+			rollDice(rolls, dice);
 			display.displayDice(dice);
 			if (rolls == MAX_ROLLS - 1) break;
 			display.waitForPlayerToSelectDice();
@@ -81,9 +81,9 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		display.updateScorecard(category, player, score);
 	}
 	
-	private void rollDice(int[] dice) {
+	private void rollDice(int roll, int[] dice) {
 		for (int i = 0; i < N_DICE; i++) {
-			if (!display.isDieSelected(i)) break;
+			if (roll == 0 && !display.isDieSelected(i)) break;
 			IODialog dialog = getDialog();
 			int entry = dialog.readInt("Enter a value for dice #" + (i + 1));
 			dice[i] = entry;
