@@ -66,13 +66,14 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	private void playTurn(int player) {
 		display.printMessage("It is " + playerNames[player] + "'s turn.");
 		int[] dice = new int[N_DICE];
+		display.waitForPlayerToClickRoll(player);
 		for (int rolls = 0; rolls < MAX_ROLLS; rolls++) {
-			display.waitForPlayerToClickRoll(player);
 			rollDice(dice);
 			display.displayDice(dice);
 			if (rolls == MAX_ROLLS - 1) break;
 			display.waitForPlayerToSelectDice();
 		}
+		display.printMessage("You are done rolling.");
 		int category = display.waitForPlayerToSelectCategory();  // *** include error checking later
 		//int score = calculateCategoryScore(category, dice);
 		IODialog dialog = getDialog();
