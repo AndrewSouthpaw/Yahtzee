@@ -68,7 +68,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		int[] dice = new int[N_DICE];
 		for (int rolls = 0; rolls < MAX_ROLLS; rolls++) {
 			display.waitForPlayerToClickRoll(player);
-			display.rollDice(dice);
+			rollDice(dice);
 			display.displayDice(dice);
 			if (rolls == MAX_ROLLS - 1) break;
 			display.waitForPlayerToSelectDice();
