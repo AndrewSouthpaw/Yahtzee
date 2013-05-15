@@ -79,7 +79,11 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 	
 	private void rollDice(int[] dice) {
-		
+		for (int i = 0; i < N_DICE; i++) {
+			IODialog dialog = getDialog();
+			int entry = dialog.readInt("Enter a value for dice #" + (i + 1));
+			dice[i] = entry;
+		}
 	}
 		
 /* Private instance variables */
