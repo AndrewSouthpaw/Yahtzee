@@ -15,7 +15,6 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 	
 	public void run() {
-		IODialog dialog = getDialog();
 		nPlayers = dialog.readInt("Enter number of players");
 		playerNames = new String[nPlayers];
 		for (int i = 1; i <= nPlayers; i++) {
@@ -89,7 +88,6 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	private void rollDice(int roll, int[] dice) {
 		for (int i = 0; i < N_DICE; i++) {
 			if (roll == 0 || display.isDieSelected(i)) {
-				IODialog dialog = getDialog();
 				int entry = dialog.readInt("Enter a value for dice #" + (i + 1));
 				dice[i] = entry;				
 			}
@@ -97,28 +95,30 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 	
 	private int chooseCategory(int[] dice) {
-		
+		int category = 0;
+		while (true) {
+			category = display.waitForPlayerToSelectCategory();
+			boolean b = YahtzeeMagicStub.checkCategory(dice, category);
+			if (b) {
+				display.printMessage("You picked a good category.");
+				break;
+			}
+			String str = dialog.readLine("This is an invalid category. Are you sure?");
+			if (str.startsWith("y") || str.startsWith("Y")) {
+				break;
+			} 
+		}
 		
 		return category;
 	}
 	
 	private int calculateCategoryScore(int category, int[] dice) {
 		int score = 0;
-		boolean b = YahtzeeMagicStub.checkCategory(dice, category);
 		if (b) {
 			
-			display.printMessage("You picked a good category.");
 			return score;
 		} else {
-			String str = dialog.readLine("This looks like an invalid category. Are you sure?");
-			if (str.startsWith("y") || str.startsWith("Y")) {
-				return score;
-			} else {
-				category = display.waitForPlayerToSelectCategory();
-				score = calculateCategoryScore(category, dice);
-				display.printMessage("You chose a different category.");
-				return score;
-			}
+			
 		}
 	}
 		
