@@ -57,9 +57,28 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 	
 	private void playRound(int round) {
-		for (int playerTurn = 1; playerTurn <= nPlayers; playerTurn++) {
-			playTurn(playerTurn);
+		for (int player = 1; player <= nPlayers; player++) {
+			playTurn(player);
 		}
+		
+	}
+	
+	private void playTurn(int player) {
+		display.printMessage("It is " + playerNames[player] + "'s turn.");
+		int[] dice = new int[N_DICE];
+		for (int rolls = 0; rolls < MAX_ROLLS; rolls++) {
+			display.waitForPlayerToClickRoll(player);
+			display.rollDice(dice);
+			display.displayDice(dice);
+			if (rolls == MAX_ROLLS - 1) break;
+			display.waitForPlayerToSelectDice();
+		}
+		int category = display.waitForPlayerToSelectCategory();  // *** include error checking later
+		int score = calculateCategoryScore(category, dice);
+		display.updateScorecard(category, player, score);
+	}
+	
+	private void rollDice(int[] dice) {
 		
 	}
 		
