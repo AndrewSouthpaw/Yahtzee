@@ -78,10 +78,6 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		//int category = display.waitForPlayerToSelectCategory();  // *** include error checking later
 		int score = calculateCategoryScore(category, dice);
 		
-		/*
-		IODialog dialog = getDialog();
-		int score = dialog.readInt("Enter a score:");
-		*/
 		display.updateScorecard(category, player, score);
 	}
 	
@@ -113,13 +109,16 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 	
 	private int calculateCategoryScore(int category, int[] dice) {
-		int score = 0;
+		int score = dialog.readInt("Enter a score:");
+/*		int score = 0;
+		
 		if (b) {
 			
 			return score;
 		} else {
 			
-		}
+		} */
+		return score;
 	}
 		
 /* Private instance variables */
