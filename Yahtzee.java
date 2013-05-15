@@ -74,7 +74,9 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			display.waitForPlayerToSelectDice();
 		}
 		display.printMessage("You are done rolling.");
-		int category = display.waitForPlayerToSelectCategory();  // *** include error checking later
+		
+		int category = chooseCategory(dice);
+		//int category = display.waitForPlayerToSelectCategory();  // *** include error checking later
 		int score = calculateCategoryScore(category, dice);
 		
 		/*
@@ -92,6 +94,12 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 				dice[i] = entry;				
 			}
 		}
+	}
+	
+	private int chooseCategory(int[] dice) {
+		
+		
+		return category;
 	}
 	
 	private int calculateCategoryScore(int category, int[] dice) {
