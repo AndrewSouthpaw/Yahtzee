@@ -83,7 +83,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	
 	private void rollDice(int roll, int[] dice) {
 		for (int i = 0; i < N_DICE; i++) {
-			if (roll == 0 && !display.isDieSelected(i)) break;
+			if (roll != 0 && display.isDieSelected(i)) break;
 			IODialog dialog = getDialog();
 			int entry = dialog.readInt("Enter a value for dice #" + (i + 1));
 			dice[i] = entry;
