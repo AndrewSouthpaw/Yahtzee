@@ -126,21 +126,12 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
  * @return Whether the dice fulfill the requirements of a category
  */
 	private boolean isDiceValidForCategory(int[] dice, int category) {
-		/*if (category >= ONES && category <= SIXES) {
+		if (category >= ONES && category <= SIXES) {
 			for (int i = 0; i < N_DICE; i++) {
 				if (dice[i] == category) return true;
 			}
-		}*/
+		}
 		switch (category) {
-			case ONES:
-			case TWOS:
-			case THREES:
-			case FOURS:
-			case FIVES:
-			case SIXES: 
-				for (int i = 0; i < N_DICE; i++) {
-					if (dice[i] == category) return true;
-				}
 			case THREE_OF_A_KIND: return isNOfAKind(3, dice, false);
 			case FOUR_OF_A_KIND: return isNOfAKind(4, dice, false);
 			case FULL_HOUSE: return (isNOfAKind(3, dice, true) && isNOfAKind(2, dice, true));
