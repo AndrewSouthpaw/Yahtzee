@@ -44,6 +44,11 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			if (round == N_SCORING_CATEGORIES) gameOver = true;
 			round++;
 		}
+		int winner = highestScoringPlayer();
+		display.printMessage("Congratulations, " + playerNames[winner - 1] + 
+								", you are the winner with a total score of " + scorecard[TOTAL][winner] + "!");
+		pause(DELAY);
+		
 		
 	}
 	
@@ -56,7 +61,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			playTurn(i, round);
 			evaluateTotalScores(i, round);
 		}
-		
+		if (nPlayers > 1) announcePlayerInTheLead();
 	}
 	
 /**
@@ -72,10 +77,10 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			rollDice(rolls, dice);
 			display.displayDice(dice);
 			if (rolls == MAX_ROLLS - 1) break;
+			display.printMessage("Results from roll " + (rolls + 1));
 			display.waitForPlayerToSelectDice();
 		}
-		display.printMessage("You are done rolling.");
-		
+		display.printMessage("You are done rolling. Please choose a category.");
 		int category = chooseCategory(dice);
 		int score = calculateCategoryScore(category, dice);
 		updateScore(player, category, score);
@@ -107,7 +112,6 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			category = display.waitForPlayerToSelectCategory();
 			boolean b = isDiceValidForCategory(dice, category);
 			if (b) {
-				display.printMessage("You picked a good category.");
 				break;
 			}
 			String str = dialog.readLine("You will get a 0 for this category. Are you sure?");
@@ -292,6 +296,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		if (round == N_SCORING_CATEGORIES) {
 			display.printMessage(playerNames[player - 1] + "'s game is finished, with a final score of " +
 									scorecard[TOTAL][player]);
+			pause(DELAY);
 		}
 	}
 	
@@ -306,7 +311,44 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 		return true;
 	}
+	
+	
+	private void announcePlayerInTheLead() {
+		int player = highestScoringPlayer();
+		if (player == -1) {
+			display.printMessage("Players are tied!");
+		} else {
+			display.printMessage(playerNames[player - 1] + " is in the lead.");
+		}
+		pause(DELAY);
+	}
+	
+	private int highestScoringPlayer() {
+		if (nPlayers == 1) return 1;
 		
+		int tiedScores = 0;
+		for (int player = 1; player <= nPlayers - 1; player++) {
+			if (scorecard[TOTAL][player] != scorecard[TOTAL][player + 1]) break;
+			tiedScores++;
+			if (tiedScores == nPlayers - 1) return -1;			
+		}
+		
+		int result = 0;
+		int score = -1;
+		for (int player = 1; player <= nPlayers; player++) {
+			if (scorecard[TOTAL][player] > score) {
+				result = player;
+				score = scorecard[TOTAL][player];
+			}
+		}
+		return result;
+	}
+		
+/* Private constants */
+
+/** Delay for special messages */
+	private static final int DELAY = 2000;
+	
 /* Private instance variables */
 	
 /** The number of players */
@@ -326,5 +368,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	
 /** Dialog for user inputs */
 	private IODialog dialog = getDialog();
+	
+/** Delay for special messages */
 
 }
