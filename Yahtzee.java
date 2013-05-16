@@ -127,8 +127,6 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 				case CHANCE: sumDice(dice, 0);
 			}
 			
-			// score = dialog.readInt("Valid category. Enter a score:");
-			
 		} else {
 			display.printMessage("Invalid category. Score is 0.");
 			
@@ -172,7 +170,12 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		return result;
 	}
 	
-	
+/**
+ * Determines whether the dice contain a straight (sequential) of a specific length.
+ * @param n The length of the straight
+ * @param dice The set of dice
+ * @return Whether the dice contain a straight
+ */
 	private boolean isStraight(int n, int[] dice) {
 		int[] frequency = diceValueFrequency(dice);
 		for (int i = 0; i < (frequency.length - n + 1); i++) {
