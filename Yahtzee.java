@@ -108,6 +108,30 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		return category;
 	}
 	
+/**
+ * Determines whether the dice fulfill the requirements of a category.
+ * @param dice The set of dice
+ * @param category The category in question
+ * @return Whether the dice fulfill the requirements of a category
+ */
+	private boolean isDiceValidForCategory(int[] dice, int category) {
+		if (category >= ONES && category <= SIXES) {
+			for (int i = 0; i < N_DICE; i++) {
+				if (dice[i] == category) return true;
+			}
+		}
+		switch (category) {
+			case THREE_OF_A_KIND: return isNOfAKind(3, dice, false);
+			case FOUR_OF_A_KIND: return isNOfAKind(4, dice, false);
+			case FULL_HOUSE: return (isNOfAKind(3, dice, true) && isNOfAKind(2, dice, true));
+			case SMALL_STRAIGHT: return isStraight(4, dice);
+			case LARGE_STRAIGHT: return isStraight(5, dice);
+			case YAHTZEE: return isNOfAKind(5, dice, false);
+			case CHANCE: return true;
+			default: return false;
+		}
+	}
+	
 	private int calculateCategoryScore(int category, int[] dice) {
 		boolean b = YahtzeeMagicStub.checkCategory(dice, category);
 		int score = 0;
