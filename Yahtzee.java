@@ -94,7 +94,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		int category = 0;
 		while (true) {
 			category = display.waitForPlayerToSelectCategory();
-			boolean b = YahtzeeMagicStub.checkCategory(dice, category);
+			boolean b = isDiceValidForCategory(dice, category);
 			if (b) {
 				display.printMessage("You picked a good category.");
 				break;
