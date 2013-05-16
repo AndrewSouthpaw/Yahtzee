@@ -142,12 +142,12 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			}
 			
 			switch (category) {
-				case THREE_OF_A_KIND: if(isNOfAKind(3, dice, false)) return sumDice(dice, 0);
-				case FOUR_OF_A_KIND: if(isNOfAKind(4, dice, false)) return sumDice(dice, 0);
-				case FULL_HOUSE: if(isNOfAKind(3, dice, true) && isNOfAKind(2, dice, true)) return FULL_HOUSE_SCORE;
-				case SMALL_STRAIGHT: if(isStraight(4, dice)) return SMALL_STRAIGHT_SCORE;
-				case LARGE_STRAIGHT: if(isStraight(5, dice)) return LARGE_STRAIGHT_SCORE;
-				case YAHTZEE: if(isNOfAKind(5, dice, false)) return YAHTZEE_SCORE;
+				case THREE_OF_A_KIND: return sumDice(dice, 0);
+				case FOUR_OF_A_KIND: return sumDice(dice, 0);
+				case FULL_HOUSE: return FULL_HOUSE_SCORE;
+				case SMALL_STRAIGHT: return SMALL_STRAIGHT_SCORE;
+				case LARGE_STRAIGHT: return LARGE_STRAIGHT_SCORE;
+				case YAHTZEE: return YAHTZEE_SCORE;
 				case CHANCE: return sumDice(dice, 0);
 			}
 			
