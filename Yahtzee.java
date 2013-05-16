@@ -85,7 +85,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		
 		int category = chooseCategory(dice);
 		int score = calculateCategoryScore(category, dice);
-		scorecard[player][category] = score;
+		scorecard[category][player] = score;
 		display.updateScorecard(category, player, score);
 		//if (round == N_SCORING_CATEGORIES) calculateFinalScore(player);
 	}
