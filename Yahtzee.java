@@ -117,14 +117,16 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			category = display.waitForPlayerToSelectCategory();
 			if (categoryHasBeenChosen[category][player]) {
 				display.printMessage("You have already chosen this category. Please choose a different one.");
+			} else {
+				boolean b = isDiceValidForCategory(dice, category);
+				if (b) {
+					break;
+				}
+				display.printMessage("You will get a 0 for this category. " +
+						"Click again to confirm, or choose another category.");
+				int categoryConfirm = display.waitForPlayerToSelectCategory();
+				if (category == categoryConfirm) break;
 			}
-			boolean b = isDiceValidForCategory(dice, category);
-			if (b) {
-				break;
-			}
-			display.printMessage("You will get a 0 for this category. Click again to confirm, or choose another category.");
-			int categoryConfirm = display.waitForPlayerToSelectCategory();
-			if (category == categoryConfirm) break;
 		}
 		
 		return category;
