@@ -99,7 +99,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 				display.printMessage("You picked a good category.");
 				break;
 			}
-			String str = dialog.readLine("This is an invalid category. Are you sure?");
+			String str = dialog.readLine("You will get a 0 for this category. Are you sure?");
 			if (str.startsWith("y") || str.startsWith("Y")) {
 				break;
 			} 
