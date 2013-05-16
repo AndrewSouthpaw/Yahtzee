@@ -86,6 +86,20 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		int category = chooseCategory(dice);
 		int score = calculateCategoryScore(category, dice);
 		updateScore(player, category, score);
+		updateScore(player, UPPER_SCORE, sumScores(player, ONES, SIXES));
+		updateScore(player, LOWER_SCORE, sumScores(player, THREE_OF_A_KIND, CHANCE));
+		updateScore(player, TOTAL, sumScores(player, 1, (N_CATEGORIES - 1)));
+		if (isUpperScoreComplete(player)) {
+			if (scorecard[UPPER_SCORE][player] >= 63) {
+				updateScore(player, UPPER_BONUS, UPPER_BONUS_SCORE);
+			} else {
+				updateScore(player, UPPER_BONUS, 0);
+			}
+		}
+		if (round == N_SCORING_CATEGORIES) {
+			display.printMessage(playerNames[player - 1] + "'s game is finished, with a final score of " +
+									scorecard[TOTAL][player]);
+		}
 		
 	}
 	
@@ -242,16 +256,37 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	private void updateScore(int player, int category, int score) {
 		scorecard[category][player] = score;
 		display.updateScorecard(category, player, score);
-		int totalScore = sumScores(player, scorecard, 1, (N_CATEGORIES - 1));
-		//if (round == N_SCORING_CATEGORIES) calculateFinalScore(player);
+		/*
+		int totalScore = sumScores(player, 1, (N_CATEGORIES - 1));
+		scorecard[TOTAL][player] = totalScore;
+		display.updateScorecard(TOTAL, player, totalScore);
+		if (isUpperScoreComplete(player)) {
+			int upperScore = sumScores(player, ONES, SIXES);
+			display.updateScorecard(UPPER_SCORE, player, upperScore);
+			if (upperScore >= 63) {
+				
+			}
+		}
+		
+		if (round == N_SCORING_CATEGORIES) {
+			
+		}*/
 	}
 	
-	private int sumScores(int player, int scorecard, int startCategory, int endCategory) {
+	private int sumScores(int player, int startCategory, int endCategory) {
 		int result = 0;
 		for (int i = startCategory; i <= endCategory; i++) {
 			result += scorecard[i][player];
 			
 		}
+		return result;
+	}
+	
+	private boolean isUpperScoreComplete(int player) {
+		for (int i = ONES; i <= SIXES; i++) {
+			if (scorecard[i][player] == 0) return false;
+		}
+		return true;
 	}
 		
 /* Private instance variables */
