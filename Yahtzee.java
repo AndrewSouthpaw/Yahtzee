@@ -88,7 +88,8 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		updateScore(player, category, score);
 		updateScore(player, UPPER_SCORE, sumScores(player, ONES, SIXES));
 		updateScore(player, LOWER_SCORE, sumScores(player, THREE_OF_A_KIND, CHANCE));
-		updateScore(player, TOTAL, sumScores(player, 1, (N_CATEGORIES - 1)));
+		updateScore(player, TOTAL, (scorecard[UPPER_SCORE][player] + scorecard[UPPER_BONUS][player] + 
+										scorecard[LOWER_SCORE][player]));
 		if (isUpperScoreComplete(player)) {
 			if (scorecard[UPPER_SCORE][player] >= 63) {
 				updateScore(player, UPPER_BONUS, UPPER_BONUS_SCORE);
