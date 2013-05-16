@@ -133,9 +133,8 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 	
 	private int calculateCategoryScore(int category, int[] dice) {
-		boolean b = YahtzeeMagicStub.checkCategory(dice, category);
-		int score = 0;
-		
+		//boolean b = YahtzeeMagicStub.checkCategory(dice, category);
+		boolean b = isDiceValidForCategory(dice, category);
 		if (b) {
 			if (category >= ONES && category <= SIXES) {
 				return sumDice(dice, category);
@@ -154,8 +153,8 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		} else {
 			display.printMessage("Invalid category. Score is 0.");
 			pause(2000);
+			return 0;
 		} 
-		return score;
 	}
 	
 	
