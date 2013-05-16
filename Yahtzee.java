@@ -153,7 +153,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			
 		} else {
 			display.printMessage("Invalid category. Score is 0.");
-			
+			pause(2000);
 		} 
 		return score;
 	}
