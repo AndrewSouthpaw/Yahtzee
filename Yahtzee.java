@@ -81,6 +81,11 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		display.updateScorecard(category, player, score);
 	}
 	
+/**
+ * Rolls the dice that are selected (or all the dice on the first roll).
+ * @param roll The number of rolls that have occurred
+ * @param dice The set of dice
+ */
 	private void rollDice(int roll, int[] dice) {
 		for (int i = 0; i < N_DICE; i++) {
 			if (roll == 0 || display.isDieSelected(i)) {
@@ -90,6 +95,12 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 	}
 	
+/**
+ * Gets a category selection from the user. If the category will produce a score of 0, the user is cautioned
+ * and offered a chance to change the selection.
+ * @param dice The set of dice
+ * @return A category selection
+ */
 	private int chooseCategory(int[] dice) {
 		int category = 0;
 		while (true) {
@@ -121,6 +132,15 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			}
 		}
 		switch (category) {
+			case ONES:
+			case TWOS:
+			case THREES:
+			case FOURS:
+			case FIVES:
+			case SIXES: 
+				for (int i = 0; i < N_DICE; i++) {
+					if (dice[i] == category) return true;
+				}
 			case THREE_OF_A_KIND: return isNOfAKind(3, dice, false);
 			case FOUR_OF_A_KIND: return isNOfAKind(4, dice, false);
 			case FULL_HOUSE: return (isNOfAKind(3, dice, true) && isNOfAKind(2, dice, true));
@@ -133,14 +153,15 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 	
 	private int calculateCategoryScore(int category, int[] dice) {
-		//boolean b = YahtzeeMagicStub.checkCategory(dice, category);
 		boolean b = isDiceValidForCategory(dice, category);
 		if (b) {
-			if (category >= ONES && category <= SIXES) {
-				return sumDice(dice, category);
-			}
-			
 			switch (category) {
+				case ONES:
+				case TWOS:
+				case THREES:
+				case FOURS:
+				case FIVES:
+				case SIXES: return sumDice(dice, category);
 				case THREE_OF_A_KIND: return sumDice(dice, 0);
 				case FOUR_OF_A_KIND: return sumDice(dice, 0);
 				case FULL_HOUSE: return FULL_HOUSE_SCORE;
