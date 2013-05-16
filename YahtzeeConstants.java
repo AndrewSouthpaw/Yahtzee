@@ -52,5 +52,6 @@ public interface YahtzeeConstants {
 	public static final int SMALL_STRAIGHT_SCORE = 30;
 	public static final int LARGE_STRAIGHT_SCORE = 40;
 	public static final int YAHTZEE_SCORE = 50;
+	public static final int UPPER_BONUS_SCORE = 35;
   
 }
