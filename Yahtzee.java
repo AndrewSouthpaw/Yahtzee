@@ -80,6 +80,10 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			display.printMessage("Results from roll " + (rolls + 1) + ".");
 			display.waitForPlayerToSelectDice();
 		}
+		if (isNOfAKind(5, dice, false)) {
+			display.printMessage("Yahtzee!");
+			pause(DELAY);
+		}
 		display.printMessage("You are done rolling. Please choose a category.");
 		int category = chooseCategory(dice);
 		int score = calculateCategoryScore(category, dice);
