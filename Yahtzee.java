@@ -148,13 +148,14 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 				case LARGE_STRAIGHT: return LARGE_STRAIGHT_SCORE;
 				case YAHTZEE: return YAHTZEE_SCORE;
 				case CHANCE: return sumDice(dice, 0);
+				default: return 0;
 			}
 			
 		} else {
 			display.printMessage("Invalid category. Score is 0.");
 			pause(2000);
 			return 0;
-		} 
+		}
 	}
 	
 	
