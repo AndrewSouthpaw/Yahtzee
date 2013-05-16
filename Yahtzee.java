@@ -114,10 +114,9 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			if (b) {
 				break;
 			}
-			String str = dialog.readLine("You will get a 0 for this category. Are you sure?");
-			if (str.startsWith("y") || str.startsWith("Y")) {
-				break;
-			} 
+			display.printMessage("You will get a 0 for this category. Click again to confirm, or choose another category.");
+			int categoryConfirm = display.waitForPlayerToSelectCategory();
+			if (category == categoryConfirm) break;
 		}
 		
 		return category;
