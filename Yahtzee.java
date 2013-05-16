@@ -124,7 +124,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 				case SMALL_STRAIGHT: if(isStraight(4, dice)) return SMALL_STRAIGHT_SCORE;
 				case LARGE_STRAIGHT: if(isStraight(5, dice)) return LARGE_STRAIGHT_SCORE;
 				case YAHTZEE: if(isNOfAKind(5, dice, false)) return YAHTZEE_SCORE;
-				case CHANCE: sumDice(dice, 0);
+				case CHANCE: return sumDice(dice, 0);
 			}
 			
 		} else {
