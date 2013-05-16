@@ -128,7 +128,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 				if (category == categoryConfirm) break;
 			}
 		}
-		
+		categoryHasBeenChosen[category][player] = true;
 		return category;
 	}
 	
