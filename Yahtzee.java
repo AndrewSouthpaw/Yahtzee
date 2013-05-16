@@ -38,6 +38,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	private void playGame() {
 		boolean gameOver = false;
 		scorecard = new int[N_CATEGORIES + 1][nPlayers + 1];
+		categoryHasBeenChosen = new boolean[N_CATEGORIES + 1][nPlayers + 1];
 		int round = 1;
 		while (!gameOver) {
 			playRound(round);
@@ -85,7 +86,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			pause(DELAY);
 		}
 		display.printMessage("You are done rolling. Please choose a category.");
-		int category = chooseCategory(dice);
+		int category = chooseCategory(player, dice);
 		int score = calculateCategoryScore(category, dice);
 		updateScore(player, category, score);
 	}
@@ -110,10 +111,13 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
  * @param dice The set of dice
  * @return A category selection
  */
-	private int chooseCategory(int[] dice) {
+	private int chooseCategory(int player, int[] dice) {
 		int category = 0;
 		while (true) {
 			category = display.waitForPlayerToSelectCategory();
+			if (categoryHasBeenChosen[category][player]) {
+				display.printMessage("You have already chosen this category. Please choose a different one.");
+			}
 			boolean b = isDiceValidForCategory(dice, category);
 			if (b) {
 				break;
@@ -362,6 +366,9 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	
 /** The scorecard for all players (index base 1, so row and column [0] are empty) */
 	private int[][] scorecard;
+	
+/** Table of whether a category has been selected by a player */
+	private boolean[][] categoryHasBeenChosen;
 	
 /** The Yahtzee Display board */
 	private YahtzeeDisplay display;
