@@ -32,6 +32,9 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		display.printMessage("Thanks for playing!");
 	}
 
+/**
+ * Plays one game of Yahtzee.
+ */
 	private void playGame() {
 		boolean gameOver = false;
 		scorecard = new int[N_CATEGORIES + 1][nPlayers + 1];
@@ -40,17 +43,6 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			playRound(round);
 			if (round == N_SCORING_CATEGORIES) gameOver = true;
 			round++;
-			
-			
-			/*
-			IODialog dialog = getDialog();
-			int player = 1;
-			int score = 15;
-			int category = display.waitForPlayerToSelectCategory();
-			display.updateScorecard(category, player, score);
-			display.printMessage("Thanks for entering a score.");
-			*/
-			
 		}
 		
 	}
@@ -62,6 +54,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	private void playRound(int round) {
 		for (int i = 1; i <= nPlayers; i++) {
 			playTurn(i, round);
+			evaluateTotalScores(i, round);
 		}
 		
 	}
@@ -86,22 +79,6 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		int category = chooseCategory(dice);
 		int score = calculateCategoryScore(category, dice);
 		updateScore(player, category, score);
-		updateScore(player, UPPER_SCORE, sumScores(player, ONES, SIXES));
-		updateScore(player, LOWER_SCORE, sumScores(player, THREE_OF_A_KIND, CHANCE));
-		updateScore(player, TOTAL, (scorecard[UPPER_SCORE][player] + scorecard[UPPER_BONUS][player] + 
-										scorecard[LOWER_SCORE][player]));
-		if (isUpperScoreComplete(player)) {
-			if (scorecard[UPPER_SCORE][player] >= 63) {
-				updateScore(player, UPPER_BONUS, UPPER_BONUS_SCORE);
-			} else {
-				updateScore(player, UPPER_BONUS, 0);
-			}
-		}
-		if (round == N_SCORING_CATEGORIES) {
-			display.printMessage(playerNames[player - 1] + "'s game is finished, with a final score of " +
-									scorecard[TOTAL][player]);
-		}
-		
 	}
 	
 /**
@@ -197,7 +174,13 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 	}
 	
-	
+/**
+ * Determines whether there are N of the same die value showing
+ * @param n The number of dice with the same value
+ * @param dice The set of dice
+ * @param exact Whether it must be exactly N or at least N
+ * @return Whether there are N of a kind showing
+ */
 	private boolean isNOfAKind(int n, int[] dice, boolean exact) {
 		boolean result = false;
 		int[] frequency = diceValueFrequency(dice);
@@ -211,6 +194,11 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		return result;
 	}
 	
+/**
+ * Creates an array listing the frequency of each possible die value for the set of dice
+ * @param dice The set of dice
+ * @return An ordered array listing the frequency of each die value
+ */
 	private int[] diceValueFrequency(int[] dice) {
 		int[] result = new int[6];
 		for (int i = 0; i < N_DICE; i++) {
@@ -219,6 +207,12 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		return result;
 	}
 	
+/**
+ * Sums the dice.
+ * @param dice The set of dice
+ * @param dieValueRequirement Whether only a specific value should be summed. Enter '0' for no requirement (sum all)
+ * @return The sum of the dice
+ */
 	private int sumDice(int[] dice, int dieValueRequirement) {
 		int result = 0;
 		for (int i = 0; i < N_DICE; i++) {
@@ -251,27 +245,24 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		return false;
 	}
 	
-	
+/**
+ * Updates the players score on the scorecard and the display.
+ * @param player The player number (index base 1)
+ * @param category The category the score will be placed in
+ * @param score The score
+ */
 	private void updateScore(int player, int category, int score) {
 		scorecard[category][player] = score;
 		display.updateScorecard(category, player, score);
-		/*
-		int totalScore = sumScores(player, 1, (N_CATEGORIES - 1));
-		scorecard[TOTAL][player] = totalScore;
-		display.updateScorecard(TOTAL, player, totalScore);
-		if (isUpperScoreComplete(player)) {
-			int upperScore = sumScores(player, ONES, SIXES);
-			display.updateScorecard(UPPER_SCORE, player, upperScore);
-			if (upperScore >= 63) {
-				
-			}
-		}
-		
-		if (round == N_SCORING_CATEGORIES) {
-			
-		}*/
 	}
 	
+/**
+ * Sums a set of scores on the scorecard.
+ * @param player The player number (index base 1)
+ * @param startCategory The starting category (inclusive)
+ * @param endCategory The ending category (inclusive)
+ * @return The sum of the scores
+ */
 	private int sumScores(int player, int startCategory, int endCategory) {
 		int result = 0;
 		for (int i = startCategory; i <= endCategory; i++) {
@@ -281,6 +272,34 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		return result;
 	}
 	
+/**
+ * Evaluates total score fields.
+ * @param player The player number (index base 1)
+ * @param round The round number
+ */
+	private void evaluateTotalScores(int player, int round) {
+		updateScore(player, UPPER_SCORE, sumScores(player, ONES, SIXES));
+		updateScore(player, LOWER_SCORE, sumScores(player, THREE_OF_A_KIND, CHANCE));
+		updateScore(player, TOTAL, (scorecard[UPPER_SCORE][player] + scorecard[UPPER_BONUS][player] + 
+										scorecard[LOWER_SCORE][player]));
+		if (isUpperScoreComplete(player)) {
+			if (scorecard[UPPER_SCORE][player] >= 63) {
+				updateScore(player, UPPER_BONUS, UPPER_BONUS_SCORE);
+			} else {
+				updateScore(player, UPPER_BONUS, 0);
+			}
+		}
+		if (round == N_SCORING_CATEGORIES) {
+			display.printMessage(playerNames[player - 1] + "'s game is finished, with a final score of " +
+									scorecard[TOTAL][player]);
+		}
+	}
+	
+/**
+ * Determines if all categories in the upper score have been filled.
+ * @param player The player number (index base 1)
+ * @return Whether all the upper score categories have been filled
+ */
 	private boolean isUpperScoreComplete(int player) {
 		for (int i = ONES; i <= SIXES; i++) {
 			if (scorecard[i][player] == 0) return false;
