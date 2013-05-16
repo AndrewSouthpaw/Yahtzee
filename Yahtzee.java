@@ -34,12 +34,12 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 
 	private void playGame() {
 		boolean gameOver = false;
-		int[][] scorecard = new int[N_CATEGORIES + 1][nPlayers + 1];
-		int round = 0;
+		scorecard = new int[N_CATEGORIES + 1][nPlayers + 1];
+		int round = 1;
 		while (!gameOver) {
 			playRound(round);
-			round++;
 			if (round == N_SCORING_CATEGORIES) gameOver = true;
+			round++;
 			
 			
 			/*
@@ -55,14 +55,23 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		
 	}
 	
+/**
+ * Plays a round, which is one turn for every player.
+ * @param round The round number
+ */
 	private void playRound(int round) {
 		for (int i = 1; i <= nPlayers; i++) {
-			playTurn(i);
+			playTurn(i, round);
 		}
 		
 	}
 	
-	private void playTurn(int player) {
+/**
+ * Plays a turn for one player. Includes rolling dice, and picking category for scoring.
+ * @param player The player whose turn it is (index base 1)
+ * @param round The round number
+ */
+	private void playTurn(int player, int round) {
 		display.printMessage("It is " + playerNames[player - 1] + "'s turn.");
 		int[] dice = new int[N_DICE];
 		display.waitForPlayerToClickRoll(player);
@@ -75,10 +84,10 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		display.printMessage("You are done rolling.");
 		
 		int category = chooseCategory(dice);
-		//int category = display.waitForPlayerToSelectCategory();  // *** include error checking later
 		int score = calculateCategoryScore(category, dice);
-		
+		scorecard[player][category] = score;
 		display.updateScorecard(category, player, score);
+		if (round == N_SCORING_CATEGORIES) calculateFinalScore(player);
 	}
 	
 /**
@@ -143,6 +152,12 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 	}
 	
+/**
+ * Calculates the score for a category.
+ * @param category The selected category
+ * @param dice The set of dice
+ * @return The score
+ */
 	private int calculateCategoryScore(int category, int[] dice) {
 		boolean b = isDiceValidForCategory(dice, category);
 		if (b) {
@@ -225,10 +240,23 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 		
 /* Private instance variables */
+	
+/** The number of players */
 	private int nPlayers;
+	
+/** The names of the players, index base 0 */
 	private String[] playerNames;
+	
+/** The scorecard for all players (index base 1, so row and column [0] are empty) */
+	private int[][] scorecard;
+	
+/** The Yahtzee Display board */
 	private YahtzeeDisplay display;
+	
+/** Random number generator */
 	private RandomGenerator rgen = new RandomGenerator();
+	
+/** Dialog for user inputs */
 	private IODialog dialog = getDialog();
 
 }
