@@ -12,6 +12,9 @@ public interface YahtzeeConstants {
 
 /** The height of the application window */
 	public static final int APPLICATION_HEIGHT = 350;
+	
+/** Delay for special messages */
+	public static final int DELAY = 2000;
 
 /** The number of dice in the game */
 	public static final int N_DICE = 5;
