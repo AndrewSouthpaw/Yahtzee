@@ -350,11 +350,7 @@ public class Yahtzee_v2 extends GraphicsProgram implements YahtzeeConstants {
 		return result;
 	}
 	
-		
-/* Private constants */
-
-/** Delay for special messages */
-	private static final int DELAY = 2000;
+	
 	
 /* Private instance variables */
 	
