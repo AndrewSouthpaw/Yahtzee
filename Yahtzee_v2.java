@@ -22,13 +22,11 @@ public class Yahtzee_v2 extends GraphicsProgram implements YahtzeeConstants {
 		}
 		display = new YahtzeeDisplay(getGCanvas(), playerNames);
 		playGame();
-		/*
 		String response = dialog.readLine("Would you like to play again?");
 		if(response.startsWith("Y") || response.startsWith("y")) {
 			clearBoard();
 			run();
 		}
-		*/	
 		display.printMessage("Thanks for playing!");
 	}
 
@@ -355,6 +353,20 @@ public class Yahtzee_v2 extends GraphicsProgram implements YahtzeeConstants {
 			}
 		}
 		return result;
+	}
+	
+	private void clearBoard() {
+		
+		// Clear the board by creating a single blank column.
+		playerNames = new String[1];
+		playerNames[0] = "";
+		display = new YahtzeeDisplay(getGCanvas(), playerNames);
+		
+		// Clear the scorecard.
+		scorecard = new int[1][1];
+		
+		// Clear the category chosen matrix.
+		categoryHasBeenChosen = new boolean[1][1];
 	}
 		
 /* Private constants */
