@@ -86,10 +86,11 @@ public class Yahtzee_v2 extends GraphicsProgram implements YahtzeeConstants {
 			pause(DELAY);
 		}
 		display.printMessage("You are done rolling. Please choose a category.");
-		CategoryResult result = new CategoryResult();
-		result.setCategory(chooseCategory(player, dice, result));
-		int score = calculateCategoryScore(result.getCategory(), dice);
-		updateScore(player, result.getCategory(), score);
+		CategoryResult result = chooseCategory(player, dice);
+		int category = result.getCategory();
+		boolean isValid = result.isValid();
+		int score = calculateCategoryScore(category, isValid, dice);
+		updateScore(player, category, score);
 	}
 	
 /**
@@ -112,24 +113,27 @@ public class Yahtzee_v2 extends GraphicsProgram implements YahtzeeConstants {
  * @param dice The set of dice
  * @return A category selection
  */
-	private int chooseCategory(int player, int[] dice, CategoryResult result) {
+	private CategoryResult chooseCategory(int player, int[] dice) {
+		CategoryResult result = new CategoryResult();
 		int category = 0;
+		int categoryConfirm = 0;
 		while (true) {
-			category = display.waitForPlayerToSelectCategory();
+			if (categoryConfirm == 0) category = display.waitForPlayerToSelectCategory();
 			boolean b = isDiceValidForCategory(dice, category);
+			result.setValid(b);
 			if (categoryHasBeenChosen[category][player]) {
 				display.printMessage("You have already chosen this category. Please choose a different one.");
 			} else {
 				if (b) break;
 				display.printMessage("You will get a 0 for this category. " +
 						"Click again to confirm, or choose another category.");
-				int categoryConfirm = display.waitForPlayerToSelectCategory();
+				categoryConfirm = display.waitForPlayerToSelectCategory();
 				if (category == categoryConfirm) break;
 			}
-			result.setValid(b);
 		}
 		categoryHasBeenChosen[category][player] = true;
-		return category;
+		result.setCategory(category);
+		return result;
 	}
 	
 /**
@@ -162,9 +166,8 @@ public class Yahtzee_v2 extends GraphicsProgram implements YahtzeeConstants {
  * @param dice The set of dice
  * @return The score
  */
-	private int calculateCategoryScore(int category, int[] dice) {
-		boolean b = isDiceValidForCategory(dice, category);
-		if (b) {
+	private int calculateCategoryScore(int category, boolean isValid, int[] dice) {
+		if (isValid) {
 			switch (category) {
 				case ONES:
 				case TWOS:
