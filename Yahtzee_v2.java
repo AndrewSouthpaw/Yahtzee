@@ -102,8 +102,9 @@ public class Yahtzee_v2 extends GraphicsProgram implements YahtzeeConstants {
 /**
  * Gets a category selection from the user. If the category will produce a score of 0, the user is cautioned
  * and offered a chance to change the selection.
+ * @param player The player number (index base 1)
  * @param dice The set of dice
- * @return A category selection
+ * @return A CategoryResult that stores the category selection and whether it is valid
  */
 	private CategoryResult chooseCategory(int player, int[] dice) {
 		CategoryResult result = new CategoryResult();
