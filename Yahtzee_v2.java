@@ -118,8 +118,6 @@ public class Yahtzee_v2 extends GraphicsProgram implements YahtzeeConstants {
 		int categoryConfirm = 0;
 		while (true) {
 			display.printMessage("You are done rolling. Please choose a category.");
-			/* display.printMessage("CategoryConfirm is: " + categoryConfirm);
-			pause(DELAY); */
 			if (categoryConfirm == 0) category = display.waitForPlayerToSelectCategory();
 			boolean b = isDiceValidForCategory(dice, category);
 			result.setValid(b);
@@ -128,7 +126,7 @@ public class Yahtzee_v2 extends GraphicsProgram implements YahtzeeConstants {
 			} else {
 				if (b) break;
 				display.printMessage("You will get a 0 for this category. " +
-						"Click again to confirm, or choose another category to cancel.");
+						"Click again to confirm, or choose another category.");
 				categoryConfirm = display.waitForPlayerToSelectCategory();
 				if (category == categoryConfirm) break;
 				category = categoryConfirm;
