@@ -11,7 +11,7 @@ import acm.util.*;
 public class Yahtzee_v2 extends GraphicsProgram implements YahtzeeConstants {
 	
 	public static void main(String[] args) {
-		new Yahtzee().start(args);
+		new Yahtzee_v2().start(args);
 	}
 	
 	public void run() {
