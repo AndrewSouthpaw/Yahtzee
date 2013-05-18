@@ -118,6 +118,8 @@ public class Yahtzee_v2 extends GraphicsProgram implements YahtzeeConstants {
 		int category = 0;
 		int categoryConfirm = 0;
 		while (true) {
+			display.printMessage("CategoryConfirm is: " + categoryConfirm);
+			pause(DELAY);
 			if (categoryConfirm == 0) category = display.waitForPlayerToSelectCategory();
 			boolean b = isDiceValidForCategory(dice, category);
 			result.setValid(b);
