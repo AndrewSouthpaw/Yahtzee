@@ -65,7 +65,7 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 			println("Selections for next roll: " + selectionsToString(diceSelections));
 		}
 		println("Round is over.");
-		pause(DELAY);
+		pause(100000000);
 		/*
 		CategoryResult result = chooseCategory(player, dice);
 		int category = result.getCategory();
