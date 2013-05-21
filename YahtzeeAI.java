@@ -14,6 +14,8 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 		//playGame();
 		int[] dice = new int[N_DICE];
 		boolean[] diceSelections = new boolean[N_DICE];
+		diceSelections[0] = true;
+		diceSelections[1] = diceSelections[4] = true; 
 		for (int rolls = 0; rolls < MAX_ROLLS; rolls++) {
 			println("Rolling dice...");
 			pause(delay);
