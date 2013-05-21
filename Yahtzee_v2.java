@@ -371,7 +371,7 @@ public class Yahtzee_v2 extends GraphicsProgram implements YahtzeeConstants {
 	private YahtzeeDisplay display;
 	
 /** Random number generator */
-	private RandomGenerator rgen = new RandomGenerator();
+	private final RandomGenerator rgen = RandomGenerator.getInstance();
 	
 /** Dialog for user inputs */
 	private IODialog dialog = getDialog();
