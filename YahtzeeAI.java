@@ -66,6 +66,7 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 			println("Selections for next roll: " + selectionsToString(diceSelections));
 		}
 		println("Turn is over.");
+		int category = chooseBestCategory(player, dice);
 		/*
 		CategoryResult result = chooseCategory(player, dice);
 		int category = result.getCategory();
@@ -119,6 +120,148 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 		return result;
 	}
 	
+/** Selects the highest scoring category */
+	private int chooseBestCategory(int player, int[] dice) {
+		int categoryIndex = 0;
+		int highestScore = -1;
+		for (int i = 1; i < N_SCORING_CATEGORIES; i++) {
+			boolean isValid = isDiceValidForCategory(dice, i);
+			int score = calculateCategoryScore(i, isValid, dice);
+			if (score > highestScore) {
+				highestScore = score;
+				categoryIndex = i;
+			}
+		}
+		
+		return categoryIndex;
+	}
+	
+	
+/**
+ * Determines whether the dice fulfill the requirements of a category.
+ * @param dice The set of dice
+ * @param category The category in question
+ * @return Whether the dice fulfill the requirements of a category
+ */
+	private boolean isDiceValidForCategory(int[] dice, int category) {
+		if (category >= ONES && category <= SIXES) {
+			for (int i = 0; i < N_DICE; i++) {
+				if (dice[i] == category) return true;
+			}
+		}
+		switch (category) {
+			case THREE_OF_A_KIND: return isNOfAKind(3, dice, false);
+			case FOUR_OF_A_KIND: return isNOfAKind(4, dice, false);
+			case FULL_HOUSE: return (isNOfAKind(3, dice, true) && isNOfAKind(2, dice, true));
+			case SMALL_STRAIGHT: return isStraight(4, dice);
+			case LARGE_STRAIGHT: return isStraight(5, dice);
+			case YAHTZEE: return isNOfAKind(5, dice, false);
+			case CHANCE: return true;
+			default: return false;
+		}
+	}
+	
+	
+/**
+ * Calculates the score for a category.
+ * @param category The selected category
+ * @param dice The set of dice
+ * @return The score
+ */
+	private int calculateCategoryScore(int category, boolean isValid, int[] dice) {
+		if (isValid) {
+			switch (category) {
+				case ONES:
+				case TWOS:
+				case THREES:
+				case FOURS:
+				case FIVES:
+				case SIXES: return sumDice(dice, category);
+				case THREE_OF_A_KIND: return sumDice(dice, 0);
+				case FOUR_OF_A_KIND: return sumDice(dice, 0);
+				case FULL_HOUSE: return FULL_HOUSE_SCORE;
+				case SMALL_STRAIGHT: return SMALL_STRAIGHT_SCORE;
+				case LARGE_STRAIGHT: return LARGE_STRAIGHT_SCORE;
+				case YAHTZEE: return YAHTZEE_SCORE;
+				case CHANCE: return sumDice(dice, 0);
+				default: return 0;
+			}
+			
+		} else {
+			return 0;
+		}
+	}
+	
+/**
+ * Determines whether there are N of the same die value showing
+ * @param n The number of dice with the same value
+ * @param dice The set of dice
+ * @param exact Whether it must be exactly N or at least N
+ * @return Whether there are N of a kind showing
+ */
+	private boolean isNOfAKind(int n, int[] dice, boolean exact) {
+		boolean result = false;
+		int[] frequency = diceValueFrequency(dice);
+		for (int i = 0; i < frequency.length; i++) {
+			if (exact) {
+				if (frequency[i] == n) return true;
+			} else {
+				if (frequency[i] >= n) return true;
+			}
+		}
+		return result;
+	}
+	
+/**
+ * Creates an array listing the frequency of each possible die value for the set of dice
+ * @param dice The set of dice
+ * @return An ordered array listing the frequency of each die value
+ */
+	private int[] diceValueFrequency(int[] dice) {
+		int[] result = new int[6];
+		for (int i = 0; i < N_DICE; i++) {
+			result[dice[i] - 1]++;
+		}
+		return result;
+	}
+	
+/**
+ * Sums the dice.
+ * @param dice The set of dice
+ * @param dieValueRequirement Whether only a specific value should be summed. Enter '0' for no requirement (sum all)
+ * @return The sum of the dice
+ */
+	private int sumDice(int[] dice, int dieValueRequirement) {
+		int result = 0;
+		for (int i = 0; i < N_DICE; i++) {
+			if (dieValueRequirement == 0) {
+				// Sum all dice
+				result += dice[i];
+			} else {
+				// Add die if it matches the required value
+				if (dice[i] == dieValueRequirement) result += dice[i];
+			}
+		}
+		return result;
+	}
+	
+/**
+ * Determines whether the dice contain a straight (sequential) of a specific length.
+ * @param n The length of the straight
+ * @param dice The set of dice
+ * @return Whether the dice contain a straight
+ */
+	private boolean isStraight(int n, int[] dice) {
+		int[] frequency = diceValueFrequency(dice);
+		for (int i = 0; i < (frequency.length - n + 1); i++) {
+			int nInARow = 0;
+			for (int j = 0; j < n; j++) {
+				if (frequency[i + j] > 0) nInARow++;
+			}
+			if (nInARow == n) return true;
+		}
+		return false;
+	}
 	
 /* Private instance variables */
 	private int scorecard[][];
