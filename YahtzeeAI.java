@@ -17,7 +17,6 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 	
 	private void playGame() {
 		boolean gameOver = false;
-		int nPlayers = 1;
 		scorecard = new int[N_CATEGORIES + 1][nPlayers + 1];
 		categoryHasBeenChosen = new boolean[N_CATEGORIES + 1][nPlayers + 1];
 		int round = 1;
@@ -123,6 +122,7 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 	
 /* Private instance variables */
 	private int scorecard[][];
+	private final int nPlayers = 1;
 	private boolean[][] categoryHasBeenChosen;
 	private int delay = 500;
 	private final RandomGenerator rgen = RandomGenerator.getInstance();
