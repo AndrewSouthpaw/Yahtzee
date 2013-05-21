@@ -66,7 +66,11 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 			println("Selections for next roll: " + selectionsToString(diceSelections));
 		}
 		println("Turn is over.");
+		pause(delay);
 		int category = chooseBestCategory(player, dice);
+		println("Choosing category " + category);
+		boolean isValid = isDiceValidForCategory(player, dice, category);
+		
 		/*
 		CategoryResult result = chooseCategory(player, dice);
 		int category = result.getCategory();
@@ -125,11 +129,13 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 		int categoryIndex = 0;
 		int highestScore = -1;
 		for (int i = 1; i < N_SCORING_CATEGORIES; i++) {
-			boolean isValid = isDiceValidForCategory(dice, i);
-			int score = calculateCategoryScore(i, isValid, dice);
-			if (score > highestScore) {
-				highestScore = score;
-				categoryIndex = i;
+			if (categoryHasBeenChosen[i][player] == false) {
+				boolean isValid = isDiceValidForCategory(dice, i);
+				int score = calculateCategoryScore(i, isValid, dice);
+				if (score > highestScore) {
+					highestScore = score;
+					categoryIndex = i;
+				}
 			}
 		}
 		
