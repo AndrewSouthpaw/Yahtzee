@@ -41,7 +41,7 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 			playTurn(i, round);
 			evaluateTotalScores(i, round);
 			printScorecard(i);
-			pause(DELAY);
+			String str = readLine("Press enter to continue.");
 		}
 		//if (nPlayers > 1) announcePlayerInTheLead();
 	}
