@@ -11,20 +11,8 @@ import java.util.*;
 public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 
 	public void run() {
-		//playGame();
-		int[] dice = new int[N_DICE];
-		boolean[] diceSelections = new boolean[N_DICE];
-		diceSelections[0] = true;
-		diceSelections[1] = diceSelections[4] = true; 
-		for (int rolls = 0; rolls < MAX_ROLLS; rolls++) {
-			println("Rolling dice...");
-			pause(delay);
-			rollDice(rolls, dice, diceSelections);
-			//display.displayDice(dice);
-			println("Dice for roll " + rolls + ": " + diceToString(dice));
-			if (rolls == MAX_ROLLS - 1) break;
-			
-		}
+		playGame();
+		
 	}
 	
 	private void playGame() {
@@ -38,9 +26,8 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 			if (round == N_SCORING_CATEGORIES) gameOver = true;
 			round++;
 		}
-		int winner = highestScoringPlayer();
-		display.printMessage("Congratulations, " + playerNames[winner - 1] + 
-								", you are the winner with a total score of " + scorecard[TOTAL][winner] + "!");
+		//int winner = highestScoringPlayer();
+		println("Congratulations, you are the winner with a total score of " + scorecard[TOTAL][1] + "!");
 		pause(DELAY);
 		
 		
