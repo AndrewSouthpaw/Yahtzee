@@ -70,6 +70,7 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 		println("Turn is over.");
 		pause(delay);
 		int category = chooseBestCategory(player, dice);
+		categoryHasBeenChosen[category][player] = true;
 		println("Choosing category " + category);
 		boolean isValid = isDiceValidForCategory(dice, category);
 		println("Dice are valid for this category: " + isValid);
