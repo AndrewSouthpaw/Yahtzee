@@ -76,6 +76,7 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 		int score = calculateCategoryScore(category, isValid, dice);
 		println("Score for this category: " + score);
 		updateScore(player, category, score);
+		pause(DELAY);
 		
 		/*
 		CategoryResult result = chooseCategory(player, dice);
