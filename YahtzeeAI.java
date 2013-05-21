@@ -51,6 +51,7 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
  * @param round The round number
  */
 	public void playTurn(int player, int round) {
+		println("Playing round " + round);
 		int[] dice = new int[N_DICE];
 		boolean[] diceSelections = new boolean[N_DICE];
 		//display.waitForPlayerToClickRoll(player);
@@ -64,8 +65,7 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 			diceSelections = selectDice(dice);
 			println("Selections for next roll: " + selectionsToString(diceSelections));
 		}
-		println("Round is over.");
-		pause(100000000);
+		println("Turn is over.");
 		/*
 		CategoryResult result = chooseCategory(player, dice);
 		int category = result.getCategory();
