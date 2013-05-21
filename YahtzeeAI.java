@@ -136,7 +136,7 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 	private int chooseBestCategory(int player, int[] dice) {
 		int categoryIndex = 0;
 		int highestScore = -1;
-		for (int i = 1; i < N_SCORING_CATEGORIES; i++) {
+		for (int i = 1; i < 16; i++) {  // sloppy, fix later.
 			if (categoryHasBeenChosen[i][player] == false) {
 				boolean isValid = isDiceValidForCategory(dice, i);
 				int score = calculateCategoryScore(i, isValid, dice);
@@ -144,6 +144,7 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 					highestScore = score;
 					categoryIndex = i;
 				}
+				if (i == 6) i = 8; // sloppy, fix later.
 			}
 		}
 		
@@ -339,7 +340,7 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 /** Prints the scorecard */
 	private void printScorecard(int player) {
 		println("Printing scorecard...");
-		for (int i = 1; i <= N_SCORING_CATEGORIES; i++) {
+		for (int i = 1; i <= N_CATEGORIES; i++) {
 			if (categoryHasBeenChosen[i][player] == true) {
 				println("[" + i + "]: " + scorecard[i][player]);
 			} else {
