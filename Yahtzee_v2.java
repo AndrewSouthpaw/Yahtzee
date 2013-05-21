@@ -63,7 +63,7 @@ public class Yahtzee_v2 extends GraphicsProgram implements YahtzeeConstants {
  * @param player The player whose turn it is (index base 1)
  * @param round The round number
  */
-	private void playTurn(int player, int round) {
+	public void playTurn(int player, int round) {
 		display.printMessage("It is " + playerNames[player - 1] + "'s turn.");
 		int[] dice = new int[N_DICE];
 		display.waitForPlayerToClickRoll(player);
