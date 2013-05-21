@@ -39,7 +39,8 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 	private void playRound(int round) {
 		for (int i = 1; i <= nPlayers; i++) {
 			playTurn(i, round);
-			//evaluateTotalScores(i, round);
+			evaluateTotalScores(i, round);
+			printScorecard(i);
 		}
 		//if (nPlayers > 1) announcePlayerInTheLead();
 	}
@@ -69,7 +70,11 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 		pause(delay);
 		int category = chooseBestCategory(player, dice);
 		println("Choosing category " + category);
-		boolean isValid = isDiceValidForCategory(player, dice, category);
+		boolean isValid = isDiceValidForCategory(dice, category);
+		println("Dice are valid for this category: " + isValid);
+		int score = calculateCategoryScore(category, isValid, dice);
+		println("Score for this category: " + score);
+		updateScore(player, category, score);
 		
 		/*
 		CategoryResult result = chooseCategory(player, dice);
@@ -268,6 +273,78 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 		}
 		return false;
 	}
+	
+	
+/**
+ * Updates the players score on the scorecard and the display.
+ * @param player The player number (index base 1)
+ * @param category The category the score will be placed in
+ * @param score The score
+ */
+	private void updateScore(int player, int category, int score) {
+		scorecard[category][player] = score;
+	}
+	
+/**
+ * Evaluates total score fields.
+ * @param player The player number (index base 1)
+ * @param round The round number
+ */
+	private void evaluateTotalScores(int player, int round) {
+		updateScore(player, UPPER_SCORE, sumScores(player, ONES, SIXES));
+		updateScore(player, LOWER_SCORE, sumScores(player, THREE_OF_A_KIND, CHANCE));
+		updateScore(player, TOTAL, (scorecard[UPPER_SCORE][player] + scorecard[UPPER_BONUS][player] + 
+										scorecard[LOWER_SCORE][player]));
+		if (isUpperScoreComplete(player)) {
+			if (scorecard[UPPER_SCORE][player] >= 63) {
+				updateScore(player, UPPER_BONUS, UPPER_BONUS_SCORE);
+			} else {
+				updateScore(player, UPPER_BONUS, 0);
+			}
+		}
+	}
+	
+	
+/**
+ * Sums a set of scores on the scorecard.
+ * @param player The player number (index base 1)
+ * @param startCategory The starting category (inclusive)
+ * @param endCategory The ending category (inclusive)
+ * @return The sum of the scores
+ */
+	private int sumScores(int player, int startCategory, int endCategory) {
+		int result = 0;
+		for (int i = startCategory; i <= endCategory; i++) {
+			result += scorecard[i][player];
+			
+		}
+		return result;
+	}
+
+/**
+ * Determines if all categories in the upper score have been filled.
+ * @param player The player number (index base 1)
+ * @return Whether all the upper score categories have been filled
+ */
+	private boolean isUpperScoreComplete(int player) {
+		for (int i = ONES; i <= SIXES; i++) {
+			if (scorecard[i][player] == 0) return false;
+		}
+		return true;
+	}
+	
+/** Prints the scorecard */
+	private void printScorecard(int player) {
+		println("Printing scorecard...");
+		for (int i = 1; i <= N_SCORING_CATEGORIES; i++) {
+			if (categoryHasBeenChosen[i][player] == true) {
+				println("[" + i + "]: " + scorecard[i][player]);
+			} else {
+				println("[" + i + "]: ");
+			}
+		}
+	}
+	
 	
 /* Private instance variables */
 	private int scorecard[][];
