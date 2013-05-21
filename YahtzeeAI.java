@@ -62,18 +62,18 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 			//display.displayDice(dice);
 			println("Dice for roll " + rolls + ": " + diceToString(dice));
 			if (rolls == MAX_ROLLS - 1) break;
-			display.printMessage("Results from roll " + (rolls + 1) + ".");
-			display.waitForPlayerToSelectDice();
+			diceSelections = selectDice(dice);
+			println("Selections for next roll: " + selectionsToString(diceSelections));
 		}
-		if (isNOfAKind(5, dice, false)) {
-			display.printMessage("Yahtzee!");
-			pause(DELAY);
-		}
+		println("Round is over.");
+		pause(DELAY);
+		/*
 		CategoryResult result = chooseCategory(player, dice);
 		int category = result.getCategory();
 		boolean isValid = result.isValid();
 		int score = calculateCategoryScore(category, isValid, dice);
 		updateScore(player, category, score);
+		*/
 	}
 	
 /**
@@ -102,6 +102,23 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 		return result;
 	}
 	
+	private String selectionsToString(boolean[] selections) {
+		String result = "[ ";
+		for (int i = 0; i < selections.length; i++) {
+			result += selections[i] + " ";
+		}
+		result += "]";
+		return result;
+	}
+	
+/** Stub. Initially dice are selected at random. */
+	private boolean[] selectDice(int[] dice) {
+		boolean[] result = new boolean[N_DICE];
+		for (int i = 0; i < dice.length; i++) {
+			result[i] = rgen.nextBoolean();
+		}
+		return result;
+	}
 	
 	
 /* Private instance variables */
