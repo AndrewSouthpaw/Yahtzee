@@ -39,9 +39,9 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 	private void playRound(int round) {
 		for (int i = 1; i <= nPlayers; i++) {
 			playTurn(i, round);
-			evaluateTotalScores(i, round);
+			//evaluateTotalScores(i, round);
 		}
-		if (nPlayers > 1) announcePlayerInTheLead();
+		//if (nPlayers > 1) announcePlayerInTheLead();
 	}
 	
 	
