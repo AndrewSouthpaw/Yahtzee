@@ -132,6 +132,8 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 		return result;
 	}
 	
+	
+	
 /** Selects the highest scoring category */
 	private int chooseBestCategory(int player, int[] dice) {
 		int categoryIndex = 0;
