@@ -132,28 +132,33 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 		return result;
 	}
 	
-/** Creates an array of all possible dice combinations */
+/** Creates a list of all possible dice combinations */
 	/* Code here is not currently generalizeable for N_DICE. Need to fix. */
-	private int[][] allDiceCombinations() {
-		int[][] result = new int[6^N_DICE][N_DICE];
-		int i = 0;
+	private void generateAllDiceCombinations() {
+		
 		for (int d1 = 1; d1 <= 6; d1++) {
 			for (int d2 = d1; d2 <= 6; d2++) {
 				for (int d3 = d2; d3 <= 6; d3++) {
 					for (int d4 = d3; d4 <= 6; d4++) {
 						for (int d5 = d4; d5 <= 6; d5++) {
-							
+							int[] arr = new int[N_DICE];
+							arr[0] = d1;
+							arr[1] = d2;
+							arr[2] = d3;
+							arr[3] = d4;
+							arr[4] = d5;
+							DiceCombination combo = new DiceCombination(arr);
 						}
 					}
 				}
 			}
 		}
 		
-		
-		
-		
-		return result;
 	}
+	
+	
+	
+	
 	
 /** Selects the highest scoring category */
 	private int chooseBestCategory(int player, int[] dice) {
@@ -379,4 +384,5 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 	private boolean[][] categoryHasBeenChosen;
 	private int delay = 500;
 	private final RandomGenerator rgen = RandomGenerator.getInstance();
+	private final ArrayList<DiceCombination> combosList = new ArrayList<DiceCombination>();
 }
