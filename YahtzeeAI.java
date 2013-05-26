@@ -132,7 +132,28 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 		return result;
 	}
 	
-	
+/** Creates an array of all possible dice combinations */
+	/* Code here is not currently generalizeable for N_DICE. Need to fix. */
+	private int[][] allDiceCombinations() {
+		int[][] result = new int[6^N_DICE][N_DICE];
+		int i = 0;
+		for (int d1 = 1; d1 <= 6; d1++) {
+			for (int d2 = d1; d2 <= 6; d2++) {
+				for (int d3 = d2; d3 <= 6; d3++) {
+					for (int d4 = d3; d4 <= 6; d4++) {
+						for (int d5 = d4; d5 <= 6; d5++) {
+							
+						}
+					}
+				}
+			}
+		}
+		
+		
+		
+		
+		return result;
+	}
 	
 /** Selects the highest scoring category */
 	private int chooseBestCategory(int player, int[] dice) {
