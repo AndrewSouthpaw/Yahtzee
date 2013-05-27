@@ -8,10 +8,10 @@ import acm.io.*;
 import acm.program.*;
 import acm.util.*;
 
-public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
+public class Yahtzee_v1 extends GraphicsProgram implements YahtzeeConstants {
 	
 	public static void main(String[] args) {
-		new Yahtzee().start(args);
+		new Yahtzee_v1().start(args);
 	}
 	
 	public void run() {
