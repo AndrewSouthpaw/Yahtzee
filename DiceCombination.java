@@ -99,6 +99,11 @@ public class DiceCombination implements YahtzeeConstants {
 		return score;
 	}
 	
+/** Gets the e-value for the combination. */
+	public double getEValue() {
+		return eValue;
+	}
+	
 	
 /** Exports a string version */
 	public String toString() {
