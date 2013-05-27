@@ -43,8 +43,9 @@ public class DiceCombination implements YahtzeeConstants {
 				diceList.remove(index);
 				matches++;
 			}
-			
 		}
+		probability = Math.pow(1.0 / 6.0, N_DICE - matches);
+		
 	}
 	
 /**
@@ -76,4 +77,5 @@ public class DiceCombination implements YahtzeeConstants {
 	private String combinationName;						/* The combination name 			*/
 	private int category;								/* The highest scoring category		*/
 	private int score;									/* The score for the best category 	*/
+	private double probability;							/* The probability of getting that combination */
 }
