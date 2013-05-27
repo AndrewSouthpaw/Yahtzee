@@ -26,6 +26,11 @@ public class DiceCombination implements YahtzeeConstants {
 		return result;
 	}
 	
+/** Gets the name of the combination */
+	public String getName() {
+		return combinationName;
+	}
+	
 /**
  * Updates the best category, score, probability, and expected value of the combination.
  * @param dice The current dice
@@ -43,8 +48,22 @@ public class DiceCombination implements YahtzeeConstants {
  * Updates the probability of getting the combination given the current dice.
  * @param dice The current dice
  */
-	public void updateProbability(int[] dice) {
-		int matches = 0;
+	public void updateProbabilityAndMatchingDice(int[] dice) {
+		int nonmatches = 0;
+		boolean[] nonmatchingDice = selectNonmatchingDiceForReroll(dice);
+		for(int i = 0; i < nonmatchingDice.length; i++) {
+			if (nonmatchingDice[i] == true) nonmatches++;
+		}
+		probability = Math.pow(1.0 / 6.0, nonmatches);
+		
+	}
+	
+	
+	public boolean[] selectNonmatchingDiceForReroll(int[] dice) {
+		boolean[] diceSelections = new boolean[N_DICE];
+		for (int i = 0; i < diceSelections.length; i++) {
+			diceSelections[i] = true;
+		}
 		List<Integer> diceList = new ArrayList<Integer>();
 		for (int i = 0; i < dice.length; i++) {
 			diceList.add(dice[i]);
@@ -53,12 +72,13 @@ public class DiceCombination implements YahtzeeConstants {
 			Integer die = combination[i];
 			int index = diceList.indexOf(die);
 			if (index != -1) {
-				diceList.remove(index);
-				matches++;
+				diceList.set(index, 0);
+				diceSelections[index] = false;
+			} else {
+				
 			}
 		}
-		probability = Math.pow(1.0 / 6.0, N_DICE - matches);
-		
+		return diceSelections;
 	}
 	
 	public int[] getCombination() {
