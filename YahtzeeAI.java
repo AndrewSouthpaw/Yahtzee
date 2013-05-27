@@ -79,7 +79,6 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 			println("Dice for roll " + rolls + ": " + diceToString(dice));
 			if (rolls == MAX_ROLLS - 1) break;
 			String bestCombo = "";
-			int bestCategory = -1;
 			int bestScore = -1;
 			for(String name: combos.keySet()) {
 				DiceCombination combo = combos.get(name);
@@ -90,20 +89,10 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 				combo.updateCombination(comboDice, category, score);
 				if (score > bestScore) {
 					bestCombo = name;
-					bestCategory = category;
 					bestScore = score;
 				}
 			}
 			diceSelections = combos.get(bestCombo).getNonmatchingDiceForReroll(dice);
-			
-			
-			
-			
-			
-			
-			
-			
-			diceSelections = selectDice(dice);
 			println("Selections for next roll: " + selectionsToString(diceSelections));
 		}
 		println("Turn is over.");
