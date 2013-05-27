@@ -89,6 +89,16 @@ public class DiceCombination implements YahtzeeConstants {
 		return combination;
 	}
 	
+/** Gets the highest scoring category. */
+	public int getCategory() {
+		return category;
+	}
+	
+/** Gets the score for the highest scoring category. */
+	public int getScore() {
+		return score;
+	}
+	
 	
 /** Exports a string version */
 	public String toString() {
