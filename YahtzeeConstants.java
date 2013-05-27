@@ -23,7 +23,7 @@ public interface YahtzeeConstants {
 	public static final int MAX_PLAYERS = 4;
 	
 /** The number of times a player is allowed to roll the dice */
-	public static final int MAX_ROLLS = 3;
+	public static final int MAX_ROLLS = 2;
 
 /** The total number of categories */
 	public static final int N_CATEGORIES = 17;
