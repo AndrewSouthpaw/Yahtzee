@@ -19,6 +19,7 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 		boolean gameOver = false;
 		scorecard = new int[N_CATEGORIES + 1][nPlayers + 1];
 		categoryHasBeenChosen = new boolean[N_CATEGORIES + 1][nPlayers + 1];
+		generateAllDiceCombinations();
 		int round = 1;
 		while (!gameOver) {
 			playRound(round);
@@ -41,7 +42,7 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 			playTurn(i, round);
 			evaluateTotalScores(i, round);
 			printScorecard(i);
-			String str = readLine("Press enter to continue.");
+			readLine("Press enter to continue.");
 		}
 		//if (nPlayers > 1) announcePlayerInTheLead();
 	}
@@ -77,6 +78,24 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 			//display.displayDice(dice);
 			println("Dice for roll " + rolls + ": " + diceToString(dice));
 			if (rolls == MAX_ROLLS - 1) break;
+			for(String name: combos.keySet()) {
+				DiceCombination combo = combos.get(name);
+				int[] comboDice = combo.getCombination();
+				
+				int category = chooseBestCategory(player, comboDice);
+				boolean isValid = isDiceValidForCategory(comboDice, category);
+				int score = calculateCategoryScore(category, isValid, comboDice);
+				// update combo
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			diceSelections = selectDice(dice);
 			println("Selections for next roll: " + selectionsToString(diceSelections));
 		}
@@ -161,7 +180,7 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 							arr[3] = d4;
 							arr[4] = d5;
 							DiceCombination combo = new DiceCombination(arr);
-							combosList.add(combo);
+							combos.put(combo.getName(), combo);
 						}
 					}
 				}
@@ -398,5 +417,5 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 	private boolean[][] categoryHasBeenChosen;
 	private int delay = 500;
 	private final RandomGenerator rgen = RandomGenerator.getInstance();
-	private final ArrayList<DiceCombination> combosList = new ArrayList<DiceCombination>();
+	private final Map<String, DiceCombination> combos = new HashMap<String, DiceCombination>();
 }
