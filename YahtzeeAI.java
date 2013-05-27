@@ -79,7 +79,7 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 			println("Dice for roll " + rolls + ": " + diceToString(dice));
 			if (rolls == MAX_ROLLS - 1) break;
 			String bestCombo = "";
-			int bestScore = -1;
+			int bestEValue = -1;
 			for(String name: combos.keySet()) {
 				DiceCombination combo = combos.get(name);
 				int[] comboDice = combo.getCombination();
@@ -87,9 +87,9 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 				boolean isValid = isDiceValidForCategory(comboDice, category);
 				int score = calculateCategoryScore(category, isValid, comboDice);
 				combo.updateCombination(comboDice, category, score);
-				if (score > bestScore) {
+				if (score > bestEValue) {
 					bestCombo = name;
-					bestScore = score;
+					bestEValue = score;
 				}
 			}
 			diceSelections = combos.get(bestCombo).getNonmatchingDiceForReroll(dice);
