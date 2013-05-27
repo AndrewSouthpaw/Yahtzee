@@ -50,7 +50,7 @@ public class DiceCombination implements YahtzeeConstants {
  */
 	public void updateProbability(int[] dice) {
 		int nonmatches = 0;
-		boolean[] nonmatchingDice = selectNonmatchingDiceForReroll(dice);
+		boolean[] nonmatchingDice = getNonmatchingDiceForReroll(dice);
 		for(int i = 0; i < nonmatchingDice.length; i++) {
 			if (nonmatchingDice[i] == true) nonmatches++;
 		}
@@ -58,8 +58,12 @@ public class DiceCombination implements YahtzeeConstants {
 		
 	}
 	
-	
-	public boolean[] selectNonmatchingDiceForReroll(int[] dice) {
+/**
+ * Gets the nonmatching dice (between the current dice and the combination) to be selected for reroll.
+ * @param dice The current dice
+ * @return The dice to be rerolled
+ */
+	public boolean[] getNonmatchingDiceForReroll(int[] dice) {
 		boolean[] diceSelections = new boolean[N_DICE];
 		for (int i = 0; i < diceSelections.length; i++) {
 			diceSelections[i] = true;
