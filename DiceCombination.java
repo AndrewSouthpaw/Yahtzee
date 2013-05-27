@@ -4,6 +4,8 @@
  * the best category number and score possible, and the expected value of the combination.
  */
 
+import java.util.*;
+
 public class DiceCombination implements YahtzeeConstants {
 
 /** Constructor */
@@ -24,7 +26,32 @@ public class DiceCombination implements YahtzeeConstants {
 		return result;
 	}
 	
+/**
+ * Updates the probability of getting the combination given the current dice.
+ * @param dice The current dice
+ */
+	public void updateProbability(int[] dice) {
+		int matches = 0;
+		List<Integer> diceList = new ArrayList<Integer>();
+		for (int i = 0; i < dice.length; i++) {
+			diceList.add(dice[i]);
+		}
+		for (int i = 0; i < combination.length; i++) {
+			Integer die = combination[i];
+			int index = diceList.indexOf(die);
+			if (index != -1) {
+				diceList.remove(index);
+				matches++;
+			}
+			
+		}
+	}
 	
+/**
+ * Sets the best category and score for the combination.
+ * @param cat The best category number
+ * @param sc The score for that category
+ */
 	public void setBestCategory(int cat, int sc) {
 		category = cat;
 		score = sc;
