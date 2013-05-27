@@ -27,6 +27,19 @@ public class DiceCombination implements YahtzeeConstants {
 	}
 	
 /**
+ * Updates the best category, score, probability, and expected value of the combination.
+ * @param dice The current dice
+ * @param cat The highest-scoring category
+ * @param sc The score for the category
+ */
+	public void updateCombination(int[] dice, int cat, int sc) {
+		category = cat;
+		score = sc;
+		updateProbability(dice);
+		eValue = score * probability; 
+	}
+	
+/**
  * Updates the probability of getting the combination given the current dice.
  * @param dice The current dice
  */
@@ -48,15 +61,10 @@ public class DiceCombination implements YahtzeeConstants {
 		
 	}
 	
-/**
- * Sets the best category and score for the combination.
- * @param cat The best category number
- * @param sc The score for that category
- */
-	public void setBestCategory(int cat, int sc) {
-		category = cat;
-		score = sc;
+	public int[] getCombination() {
+		return combination;
 	}
+	
 	
 /** Exports a string version */
 	public String toString() {
@@ -77,5 +85,6 @@ public class DiceCombination implements YahtzeeConstants {
 	private String combinationName;						/* The combination name 			*/
 	private int category;								/* The highest scoring category		*/
 	private int score;									/* The score for the best category 	*/
-	private double probability;							/* The probability of getting that combination */
+	private double probability;							/* The probability of getting that combination	*/
+	private double eValue;								/* The expected value of the combination		*/
 }
