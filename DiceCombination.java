@@ -104,6 +104,10 @@ public class DiceCombination implements YahtzeeConstants {
 		return eValue;
 	}
 	
+	public double getProbability() {
+		return probability;
+	}
+	
 	
 /** Exports a string version */
 	public String toString() {
