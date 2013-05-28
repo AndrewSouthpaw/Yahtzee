@@ -8,7 +8,7 @@ import acm.program.*;
 import acm.util.*;
 import java.util.*;
 
-public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
+public class YahtzeeAI_v2 extends ConsoleProgram implements YahtzeeConstants {
 
 	public void run() {
 		playGame();
