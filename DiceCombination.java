@@ -41,7 +41,7 @@ public class DiceCombination implements YahtzeeConstants {
 		category = cat;
 		score = sc;
 		updateProbability(dice);
-		eValue = (double) score * probability; 
+		eValue = probability * (double) score; 
 	}
 	
 /**
