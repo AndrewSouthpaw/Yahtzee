@@ -93,6 +93,9 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 					bestEValue = eValue;
 				}
 			}
+			println("The best combination to aim for: " + combos.get(bestCombo).getName());
+			println("The best category: " + combos.get(bestCombo).getCategory());
+			println("The best evalue: " + combos.get(bestCombo).getEValue());
 			diceSelections = combos.get(bestCombo).getNonmatchingDiceForReroll(dice);
 			println("Selections for next roll: " + selectionsToString(diceSelections));
 		}
