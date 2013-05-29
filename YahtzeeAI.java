@@ -215,6 +215,9 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 	}
 	
 	
+	private Map<String, DiceCombination>
+	
+	
 /**
  * Determines whether the dice fulfill the requirements of a category.
  * @param dice The set of dice
