@@ -157,14 +157,6 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 		return result;
 	}
 	
-/** Stub. Initially dice are selected at random. */
-	private boolean[] selectDice(int[] dice) {
-		boolean[] result = new boolean[N_DICE];
-		for (int i = 0; i < dice.length; i++) {
-			result[i] = rgen.nextBoolean();
-		}
-		return result;
-	}
 	
 /** Creates a list of all possible dice combinations */
 	/* Code here is not currently generalizeable for N_DICE. Need to fix. */
