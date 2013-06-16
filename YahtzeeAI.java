@@ -215,7 +215,7 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 	}
 	
 	
-	private Map<String, DiceCombination>
+	//private Map<String, DiceCombination> <-----------------------------------------------
 	
 	
 /**
