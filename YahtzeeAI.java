@@ -91,8 +91,7 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 					int score = calculateCategoryScore(category, isValid, comboDice);
 					diceCombo.updateCombination(dice, category, score);
 					double eValue = diceCombo.getEValue();
-					selectionCombo.
-					
+					selectionCombo.addEValue(eValue);
 				}
 			}
 			
@@ -183,7 +182,30 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 	
 	/* generate dice combinations from selection */
 	
+	/** Creates a set of all combinations of dice selections.
+	 * 	USAGE NOTE: not currently generalizable for N_DICE.
+	 */
 	
+	private void generateAllDiceSelections() {
+		for (int d0 = 0; d0 <= 1; d0++) {
+			for (int d1 = 0; d1 <= 1; d1++) {
+				for (int d2 = 0; d2 <= 1; d2++) {
+					for (int d3 = 0; d3 <= 1; d3++) {
+						for (int d4 = 0; d4 <= 1; d4++) {
+							boolean[] arr = new boolean[5];
+							arr[0] = (d0 == 0) ? false : true;
+							arr[1] = (d1 == 0) ? false : true;
+							arr[2] = (d2 == 0) ? false : true;
+							arr[3] = (d3 == 0) ? false : true;
+							arr[4] = (d4 == 0) ? false : true;
+							DiceSelection combo = new DiceSelection(arr);
+							allSelections.put(combo.getName(), combo);
+						}
+					}
+				}
+			}
+		}
+	}
 	
 	
 	
@@ -447,4 +469,5 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 	private int delay = 500;
 	private final RandomGenerator rgen = RandomGenerator.getInstance();
 	private final Map<String, DiceCombination> combos = new HashMap<String, DiceCombination>();
+	private final Map<String, DiceSelection> allSelections = new HashMap<String, DiceSelection>();
 }
