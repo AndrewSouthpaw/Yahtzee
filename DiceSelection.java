@@ -51,9 +51,14 @@ public class DiceSelection implements YahtzeeConstants {
 		evalue = 0.0;
 	}
 	
-	
+	/** Sets the possible dice combinations for the selection */
 	public void setDiceCombinations(List<DiceCombination> list) {
 		allDiceCombinations = list;
+	}
+	
+	/** Adds the evalue of a dice combination to the evalue of the selection */
+	public void addEValue(double eval) {
+		evalue += eval;
 	}
 	
 
