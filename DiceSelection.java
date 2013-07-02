@@ -66,7 +66,7 @@ public class DiceSelection implements YahtzeeConstants {
 		return evalue;
 	}
 	
-	
+	/** Returns an Iterator for the set of dice combinations */
 	public Iterator<DiceCombination> getDiceCombinationsIterator() {
 		Iterator<DiceCombination> it = allDiceCombinations.iterator();
 		return it;
@@ -74,9 +74,10 @@ public class DiceSelection implements YahtzeeConstants {
 
 	
 	/* Private instance variables */
-	private boolean[] selection = new boolean[N_DICE];
-	private String name;
+	private boolean[] selection = new boolean[N_DICE];		/* The dice selection for reroll 	*/
+	private String name;									/* The name of the selection		*/
 	private List<DiceCombination> allDiceCombinations = new ArrayList<DiceCombination>();
-	private double evalue = 0.0;
+															/* All dice combinations possible	*/
+	private double evalue = 0.0;							/* Expected value of the selection	*/
 	
 }
