@@ -61,6 +61,11 @@ public class DiceSelection implements YahtzeeConstants {
 		evalue += eval;
 	}
 	
+	
+	public Iterator<DiceCombination> getDiceCombinationsIterator() {
+		Iterator<DiceCombination> it = allDiceCombinations.iterator();
+		return it;
+	}
 
 	
 	/* Private instance variables */
