@@ -50,10 +50,15 @@ public class DiceCombination implements YahtzeeConstants {
  */
 	public void updateProbability(int[] dice) {
 		int nonmatches = 0;
+		for (int i = 0; i < dice.length; i++) {
+			if (dice[i] != combination[i]) nonmatches++; 
+		}
+		
+		/*
 		boolean[] nonmatchingDice = getNonmatchingDiceForReroll(dice);
 		for(int i = 0; i < nonmatchingDice.length; i++) {
 			if (nonmatchingDice[i] == true) nonmatches++;
-		}
+		}*/
 		probability = Math.pow(1.0 / 6.0, nonmatches);
 		
 	}
