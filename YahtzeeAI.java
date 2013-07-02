@@ -94,7 +94,7 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 					int category = chooseBestCategory(player, comboDice);
 					boolean isValid = isDiceValidForCategory(comboDice, category);
 					int score = calculateCategoryScore(category, isValid, comboDice);
-					diceCombo.updateCombination(dice, category, score);
+					diceCombo.updateCombination(dice, category, score, selectedDice);
 					double eValue = diceCombo.getEValue();
 					selectionCombo.addEValue(eValue);
 					//
