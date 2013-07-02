@@ -42,7 +42,7 @@ public class DiceSelection implements YahtzeeConstants {
 	
 	
 	/** Returns the dice selection */
-	public boolean[] getSelection() {
+	public boolean[] getDiceSelection() {
 		return selection;
 	}
 	
