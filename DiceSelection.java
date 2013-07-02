@@ -40,6 +40,12 @@ public class DiceSelection implements YahtzeeConstants {
 		return name;
 	}
 	
+	
+	/** Returns the dice selection */
+	public boolean[] getSelection() {
+		return selection;
+	}
+	
 
 	
 	/* Private instance variables */
