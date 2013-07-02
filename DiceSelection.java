@@ -33,11 +33,13 @@ public class DiceSelection implements YahtzeeConstants {
 		}
 		return result;
 	}
+	
+	
 
 	
 	/* Private instance variables */
 	private boolean[] selection = new boolean[N_DICE];
 	private String name;
-	
+	private final List<DiceCombination> allDiceCombinations = new ArrayList<DiceCombination>();
 	
 }
