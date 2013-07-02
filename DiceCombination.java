@@ -36,11 +36,12 @@ public class DiceCombination implements YahtzeeConstants {
  * @param dice The current dice
  * @param cat The highest-scoring category
  * @param sc The score for the category
+ * @param selectedDice The dice selection for reroll
  */
-	public void updateCombination(int[] dice, int cat, int sc) {
+	public void updateCombination(int[] dice, int cat, int sc, boolean[] selectedDice) {
 		category = cat;
 		score = sc;
-		updateProbability(dice);
+		updateProbability(selectedDice);
 		eValue = probability * (double) score; 
 	}
 	
