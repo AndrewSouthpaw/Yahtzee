@@ -82,10 +82,7 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 				DiceSelection selectionCombo = allSelections.get(name);
 				selectedDice = selectionCombo.getDiceSelection();
 				selectionCombo.resetEValue();
-				
-				// left 2013-07-02 15:20
-				selectionCombo.set
-				DiceCombinations(generateDiceCombinations(selectedDice));
+				selectionCombo.setDiceCombinations(generateDiceCombinations(selectedDice, dice));
 				for(String str: selectionCombo.getDiceCombinationsIterator()) {
 					DiceCombination diceCombo = selectionCombo.getDiceCombination(str);
 					int[] comboDice = diceCombo.getCombination();
@@ -210,6 +207,47 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 		}
 	}
 	
+	/**
+	 * Generates the dice combinations possible for a given set of selected dice.
+	 * 
+	 * USER NOTE: currently not generalizable for N_DICE.
+	 * 
+	 * @param selections The dice selections for re-roll
+	 * @param dice The current dice
+	 * @return The set of dice combinations
+	 */
+	private List<DiceCombination> generateDiceCombinations(boolean[] selections, int[] dice) {
+		List<DiceCombination> result = new ArrayList<DiceCombination>();
+		int lb0 = (selections[0] == false ? dice[0] : 1);
+		int ub0 = (selections[0] == false ? dice[0] : 6);
+		for (int d0 = lb0; d0 <= ub0; d0++) {
+			
+			int lb1 = (selections[1] == false ? dice[1] : 1);
+			int ub1 = (selections[1] == false ? dice[1] : 6);
+			for (int d1 = lb1; d1 <= ub1; d1++) {
+				
+				int lb2 = (selections[2] == false ? dice[2] : 1);
+				int ub2 = (selections[2] == false ? dice[2] : 6);
+				for (int d2 = lb2; d2 <= ub2; d2++) {
+					
+					int lb3 = (selections[3] == false ? dice[3] : 1);
+					int ub3 = (selections[3] == false ? dice[3] : 6);
+					for (int d3 = lb3; d3 <= ub3; d3++) {
+						
+						int lb4 = (selections[4] == false ? dice[4] : 1);
+						int ub4 = (selections[4] == false ? dice[4] : 6);
+						for (int d4 = lb4; d4 <= ub4; d4++) {
+							
+							int[] arr = {d0, d1, d2, d3, d4};
+							DiceCombination combo = new DiceCombination(arr);
+							result.add(combo);
+						}
+					}
+				}
+			}
+		}
+		return result;
+	}
 	
 	
 	
