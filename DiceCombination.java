@@ -46,20 +46,19 @@ public class DiceCombination implements YahtzeeConstants {
 	
 /**
  * Updates the probability of getting the combination given the current dice.
- * @param dice The current dice
+ * @param diceSelections The dice selections for reroll
  */
-	public void updateProbability(int[] dice) {
-		int nonmatches = 0;
-		for (int i = 0; i < dice.length; i++) {
-			if (dice[i] != combination[i]) nonmatches++; 
+	public void updateProbability(boolean[] diceSelections) {
+		int diceRerolled = 0;
+		for (int i = 0; i < diceSelections.length; i++) {
+			if (diceSelections[i] == true) diceRerolled++;
 		}
-		
 		/*
 		boolean[] nonmatchingDice = getNonmatchingDiceForReroll(dice);
 		for(int i = 0; i < nonmatchingDice.length; i++) {
 			if (nonmatchingDice[i] == true) nonmatches++;
 		}*/
-		probability = Math.pow(1.0 / 6.0, nonmatches);
+		probability = Math.pow(1.0 / 6.0, diceRerolled);
 		
 	}
 	
