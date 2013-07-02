@@ -51,12 +51,17 @@ public class DiceSelection implements YahtzeeConstants {
 		evalue = 0.0;
 	}
 	
+	
+	public void setDiceCombinations(List<DiceCombination> list) {
+		allDiceCombinations = list;
+	}
+	
 
 	
 	/* Private instance variables */
 	private boolean[] selection = new boolean[N_DICE];
 	private String name;
-	private final List<DiceCombination> allDiceCombinations = new ArrayList<DiceCombination>();
+	private List<DiceCombination> allDiceCombinations = new ArrayList<DiceCombination>();
 	private double evalue = 0.0;
 	
 }
