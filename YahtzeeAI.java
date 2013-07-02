@@ -97,25 +97,16 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 					diceCombo.updateCombination(dice, category, score);
 					double eValue = diceCombo.getEValue();
 					selectionCombo.addEValue(eValue);
-					if(name.equals("falsefalsefalsefalsetrue")) {
-						if(diceCombo.getName().equals("66661")) {
-							println("Probability for 66661 is " + diceCombo.getProbability());
-							println("Score for 66661 is " + diceCombo.getScore());
-							println("Evalue for 66661 is " + diceCombo.getEValue());
-						}
-						if(diceCombo.getName().equals("66662")) {
-							println("Probability for 66662 is " + diceCombo.getProbability());
-							println("Score for 66662 is " + diceCombo.getScore());
-							println("Evalue for 66662 is " + diceCombo.getEValue());
-						}
-					}
-					
+					//
 					if(name.equals("falsefalsefalsefalsetrue")) {
 						println("Evalue dice combo " + diceCombo.getName() + " is: " + diceCombo.getEValue());
 					}
+					//
 				}
+				//
 				println("Evalue of: " + selectionsToString(selectionCombo.getDiceSelection()) + " is " +
 						selectionCombo.getEValue());
+				//
 				if (selectionCombo.getEValue() > bestEValue) {
 					bestSelection = selectionCombo;
 					bestEValue = selectionCombo.getEValue();
