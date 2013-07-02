@@ -19,7 +19,6 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 		boolean gameOver = false;
 		scorecard = new int[N_CATEGORIES + 1][nPlayers + 1];
 		categoryHasBeenChosen = new boolean[N_CATEGORIES + 1][nPlayers + 1];
-		generateAllDiceCombinations();
 		int round = 1;
 		while (!gameOver) {
 			playRound(round);
@@ -56,7 +55,8 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 	public void playTurn(int player, int round) {
 		println("Playing round " + round);
 		int[] dice = new int[N_DICE];
-		boolean[] diceSelections = new boolean[N_DICE];
+		generateAllDiceSelections();
+		boolean[] selectedDice = new boolean[N_DICE];
 		//display.waitForPlayerToClickRoll(player);
 		for (int rolls = 0; rolls < MAX_ROLLS; rolls++) {
 			
@@ -74,11 +74,30 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 			
 			println("Rolling dice...");
 			pause(delay);
-			rollDice(rolls, dice, diceSelections);
+			rollDice(rolls, dice, selectedDice);
 			//display.displayDice(dice);
 			println("Dice for roll " + rolls + ": " + diceToString(dice));
 			if (rolls == MAX_ROLLS - 1) break;
-			String bestCombo = "";
+			for(String name: allSelections.keySet()) {
+				DiceSelection combo = allSelections.get(name);
+				selectedDice = combo.getDiceSelection();
+				combo.generateDiceCombinations(selectedDice);
+				for(String str: combo.getDiceCombinationsIterator()) {
+					DiceCombination diceCombo = combo.getDiceCombination(str);
+					int[] comboDice = diceCombo.getCombination();
+					int category = chooseBestCategory(player, comboDice);
+					boolean isValid = isDiceValidForCategory(comboDice, category);
+					int score = calculateCategoryScore(category, isValid, comboDice);
+					diceCombo.updateCombination(dice, category, score);
+					double eValue = diceCombo.getEValue();
+					
+					
+				}
+			}
+			
+			
+			
+			/*String bestCombo = "";
 			double bestEValue = -1.0;
 			for(String name: combos.keySet()) {
 				DiceCombination combo = combos.get(name);
@@ -92,14 +111,17 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 					bestCombo = name;
 					bestEValue = eValue;
 				}
-			}
+			}*/
+			
+			
+			
 			println("The best combination to aim for: " + combos.get(bestCombo).getName());
 			println("The probability of achieving this combo: " + combos.get(bestCombo).getProbability());
 			println("The best category: " + combos.get(bestCombo).getCategory());
 			println("The score for this category is: " + combos.get(bestCombo).getScore());
 			println("The best evalue: " + combos.get(bestCombo).getEValue());
-			diceSelections = combos.get(bestCombo).getNonmatchingDiceForReroll(dice);
-			println("Selections for next roll: " + selectionsToString(diceSelections));
+			selectedDice = combos.get(bestCombo).getNonmatchingDiceForReroll(dice);
+			println("Selections for next roll: " + selectionsToString(selectedDice));
 		}
 		println("Turn is over.");
 		pause(delay);
