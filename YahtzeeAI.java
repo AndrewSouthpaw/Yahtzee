@@ -82,7 +82,10 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 				DiceSelection selectionCombo = allSelections.get(name);
 				selectedDice = selectionCombo.getDiceSelection();
 				selectionCombo.resetEValue();
-				selectionCombo.generateDiceCombinations(selectedDice);
+				
+				// left 2013-07-02 15:20
+				selectionCombo.set
+				DiceCombinations(generateDiceCombinations(selectedDice));
 				for(String str: selectionCombo.getDiceCombinationsIterator()) {
 					DiceCombination diceCombo = selectionCombo.getDiceCombination(str);
 					int[] comboDice = diceCombo.getCombination();
@@ -260,8 +263,6 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 		return categoryIndex;
 	}
 	
-	
-	//private Map<String, DiceCombination> <-----------------------------------------------
 	
 	
 /**
