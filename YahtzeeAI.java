@@ -97,9 +97,13 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 					selectionCombo.addEValue(eValue);
 				}
 				
-				if ()
+				if (selectionCombo.getEValue() > bestEValue) {
+					bestSelection = selectionCombo;
+					bestEValue = selectionCombo.getEValue();
+				}
 			}
-			println("The best selection to choose is: " )
+			println("The best selection to choose is: " + bestSelection.getName());
+			
 			
 			
 			/*String bestCombo = "";
