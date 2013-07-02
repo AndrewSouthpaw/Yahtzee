@@ -1,6 +1,6 @@
 /**
  * Provides the methods for a Yahtzee computer player.
- * 
+ * Created 2013-07-02.
  * Debugging: set as own program.
  */
 
