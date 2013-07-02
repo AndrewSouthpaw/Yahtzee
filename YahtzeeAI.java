@@ -99,17 +99,17 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 					diceCombo.updateCombination(dice, category, score, selectedDice);
 					double eValue = diceCombo.getEValue();
 					selectionCombo.addEValue(eValue);
-					//
+					/*
 					if(name.equals("falsefalsefalsefalsetrue") || name.equals("falsefalsetruefalsefalse") ||
 							name.equals("truefalsefalsefalsetrue")) {
 						println("Evalue dice combo " + diceCombo.getName() + " is: " + diceCombo.getEValue());
 					}
-					//
+					*/
 				}
-				//
+				/*
 				println("Evalue of: " + selectionsToString(selectionCombo.getDiceSelection()) + " is " +
 						selectionCombo.getEValue());
-				//
+				*/
 				if (selectionCombo.getEValue() > bestEValue) {
 					bestSelection = selectionCombo;
 					bestEValue = selectionCombo.getEValue();
@@ -147,7 +147,6 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 			
 		}
 		println("Turn is over.");
-		pause(delay);
 		int category = chooseBestCategory(player, dice);
 		categoryHasBeenChosen[category][player] = true;
 		println("Choosing category " + category);
@@ -156,7 +155,6 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 		int score = calculateCategoryScore(category, isValid, dice);
 		println("Score for this category: " + score);
 		updateScore(player, category, score);
-		pause(DELAY);
 		
 		/*
 		CategoryResult result = chooseCategory(player, dice);
