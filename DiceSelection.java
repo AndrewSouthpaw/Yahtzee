@@ -55,12 +55,15 @@ public class DiceSelection implements YahtzeeConstants {
 	public void setDiceCombinations(List<DiceCombination> list) {
 		allDiceCombinations = list;
 	}
-	sdfsdf
-	
 	
 	/** Adds the evalue of a dice combination to the evalue of the selection */
 	public void addEValue(double eval) {
 		evalue += eval;
+	}
+	
+	/** Returns the evalue for the dice selection */
+	public double getEValue() {
+		return evalue;
 	}
 	
 	
