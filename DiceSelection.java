@@ -8,6 +8,7 @@
  * 
  */
 
+import java.util.*;
 
 public class DiceSelection implements YahtzeeConstants {
 
