@@ -46,11 +46,17 @@ public class DiceSelection implements YahtzeeConstants {
 		return selection;
 	}
 	
+	/** Resets the aggregate evalue of the dice selection */
+	public void resetEValue() {
+		evalue = 0.0;
+	}
+	
 
 	
 	/* Private instance variables */
 	private boolean[] selection = new boolean[N_DICE];
 	private String name;
 	private final List<DiceCombination> allDiceCombinations = new ArrayList<DiceCombination>();
+	private double evalue = 0.0;
 	
 }
