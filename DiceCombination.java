@@ -54,11 +54,6 @@ public class DiceCombination implements YahtzeeConstants {
 		for (int i = 0; i < diceSelections.length; i++) {
 			if (diceSelections[i] == true) diceRerolled++;
 		}
-		/*
-		boolean[] nonmatchingDice = getNonmatchingDiceForReroll(dice);
-		for(int i = 0; i < nonmatchingDice.length; i++) {
-			if (nonmatchingDice[i] == true) nonmatches++;
-		}*/
 		probability = Math.pow(1.0 / 6.0, diceRerolled);
 		
 	}
