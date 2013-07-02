@@ -11,7 +11,7 @@ import java.util.*;
 public class DiceCombination_v1 implements YahtzeeConstants {
 
 /** Constructor */
-	public DiceCombination(int[] dice) {
+	public DiceCombination_v1(int[] dice) {
 		combination = dice;
 		combinationName = createName();
 	}
