@@ -158,8 +158,17 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 	}
 	
 	
+	/* generate dice combinations from selection */
+	
+	
+	
+	
+	
+	
 /** Creates a list of all possible dice combinations */
-	/* Code here is not currently generalizeable for N_DICE. Need to fix. */
+	/* Code here is not currently generalizeable for N_DICE. Need to fix. 
+	 * May need to scrap pending investigation of AI inefficiency 
+	*/
 	private void generateAllDiceCombinations() {
 		
 		for (int d1 = 1; d1 <= 6; d1++) {
