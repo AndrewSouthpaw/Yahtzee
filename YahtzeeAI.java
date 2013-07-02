@@ -76,7 +76,7 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 			pause(delay);
 			//rollDice(rolls, dice, selectedDice);
 			dice[0] = dice[1] = dice[2] = dice[3] = 6;
-			dice[4] = 5;
+			dice[4] = 6;
 			//display.displayDice(dice);
 			println("Dice for roll " + rolls + ": " + diceToString(dice));
 			if (rolls == MAX_ROLLS - 1) break;
