@@ -59,18 +59,7 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 		boolean[] selectedDice = new boolean[N_DICE];
 		//display.waitForPlayerToClickRoll(player);
 		for (int rolls = 0; rolls < MAX_ROLLS; rolls++) {
-			
-/*
- * For each roll:
- * 		Keep track of the best score so far, and index of the combo
- * 		Take each combination
- * 			Determine best category
- * 			Calculate score
- * 			Calculate probability
- * 			Evaluate expected value 
- * 		While entering, compare with best score to capture the best one
- * 		
- */
+	
 			
 			println("Rolling dice...");
 			pause(delay);
