@@ -78,13 +78,16 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 			//display.displayDice(dice);
 			println("Dice for roll " + rolls + ": " + diceToString(dice));
 			if (rolls == MAX_ROLLS - 1) break;
+			DiceSelection bestSelection;
+			double bestEValue = -1.0;
 			for(String name: allSelections.keySet()) {
 				DiceSelection selectionCombo = allSelections.get(name);
 				selectedDice = selectionCombo.getDiceSelection();
 				selectionCombo.resetEValue();
 				selectionCombo.setDiceCombinations(generateDiceCombinations(selectedDice, dice));
-				for(String str: selectionCombo.getDiceCombinationsIterator()) {
-					DiceCombination diceCombo = selectionCombo.getDiceCombination(str);
+				Iterator<DiceCombination> it = selectionCombo.getDiceCombinationsIterator();
+				while (it.hasNext()) {
+					DiceCombination diceCombo = it.next(); 
 					int[] comboDice = diceCombo.getCombination();
 					int category = chooseBestCategory(player, comboDice);
 					boolean isValid = isDiceValidForCategory(comboDice, category);
@@ -93,8 +96,10 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 					double eValue = diceCombo.getEValue();
 					selectionCombo.addEValue(eValue);
 				}
+				
+				if ()
 			}
-			
+			println("The best selection to choose is: " )
 			
 			
 			/*String bestCombo = "";
@@ -111,10 +116,7 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 					bestCombo = name;
 					bestEValue = eValue;
 				}
-			}*/
-			
-			
-			
+			}
 			println("The best combination to aim for: " + combos.get(bestCombo).getName());
 			println("The probability of achieving this combo: " + combos.get(bestCombo).getProbability());
 			println("The best category: " + combos.get(bestCombo).getCategory());
@@ -122,6 +124,9 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 			println("The best evalue: " + combos.get(bestCombo).getEValue());
 			selectedDice = combos.get(bestCombo).getNonmatchingDiceForReroll(dice);
 			println("Selections for next roll: " + selectionsToString(selectedDice));
+			
+			*/
+			
 		}
 		println("Turn is over.");
 		pause(delay);
