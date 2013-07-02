@@ -79,18 +79,19 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 			println("Dice for roll " + rolls + ": " + diceToString(dice));
 			if (rolls == MAX_ROLLS - 1) break;
 			for(String name: allSelections.keySet()) {
-				DiceSelection combo = allSelections.get(name);
-				selectedDice = combo.getDiceSelection();
-				combo.generateDiceCombinations(selectedDice);
-				for(String str: combo.getDiceCombinationsIterator()) {
-					DiceCombination diceCombo = combo.getDiceCombination(str);
+				DiceSelection selectionCombo = allSelections.get(name);
+				selectedDice = selectionCombo.getDiceSelection();
+				selectionCombo.resetEValue();
+				selectionCombo.generateDiceCombinations(selectedDice);
+				for(String str: selectionCombo.getDiceCombinationsIterator()) {
+					DiceCombination diceCombo = selectionCombo.getDiceCombination(str);
 					int[] comboDice = diceCombo.getCombination();
 					int category = chooseBestCategory(player, comboDice);
 					boolean isValid = isDiceValidForCategory(comboDice, category);
 					int score = calculateCategoryScore(category, isValid, comboDice);
 					diceCombo.updateCombination(dice, category, score);
 					double eValue = diceCombo.getEValue();
-					// left here 2013-07-02 14:31
+					selectionCombo.
 					
 				}
 			}
