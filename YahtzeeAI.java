@@ -78,7 +78,7 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 			//display.displayDice(dice);
 			println("Dice for roll " + rolls + ": " + diceToString(dice));
 			if (rolls == MAX_ROLLS - 1) break;
-			DiceSelection bestSelection;
+			DiceSelection bestSelection = null;
 			double bestEValue = -1.0;
 			for(String name: allSelections.keySet()) {
 				DiceSelection selectionCombo = allSelections.get(name);
@@ -103,7 +103,7 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 				}
 			}
 			println("The best selection to choose is: " + bestSelection.getName());
-			
+			println("The evalue for this selection is: " + bestSelection.getEValue());
 			
 			
 			/*String bestCombo = "";
