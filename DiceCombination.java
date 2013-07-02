@@ -48,7 +48,7 @@ public class DiceCombination implements YahtzeeConstants {
  * Updates the probability of getting the combination given the current dice.
  * @param diceSelections The dice selections for reroll
  */
-	public void updateProbability(boolean[] diceSelections) {
+	private void updateProbability(boolean[] diceSelections) {
 		int diceRerolled = 0;
 		for (int i = 0; i < diceSelections.length; i++) {
 			if (diceSelections[i] == true) diceRerolled++;
