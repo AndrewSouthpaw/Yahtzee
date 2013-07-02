@@ -36,7 +36,7 @@ public class DiceSelection implements YahtzeeConstants {
 	}
 	
 	/** Returns the name of the selection */
-	private String getName() {
+	public String getName() {
 		return name;
 	}
 	
