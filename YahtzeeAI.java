@@ -97,6 +97,9 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 					diceCombo.updateCombination(dice, category, score);
 					double eValue = diceCombo.getEValue();
 					selectionCombo.addEValue(eValue);
+					if(name.equals("falsefalsefalsefalsetrue")) {
+						println("Evalue dice combo " + diceCombo.getName() + " is: " + diceCombo.getEValue());
+					}
 				}
 				println("Evalue of: " + selectionsToString(selectionCombo.getDiceSelection()) + " is " +
 						selectionCombo.getEValue());
