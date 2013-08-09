@@ -1,6 +1,6 @@
 /**
  * Provides the methods for a Yahtzee computer player.
- * 
+ * Created 2013-07-02.
  * Debugging: set as own program.
  */
 
@@ -157,17 +157,18 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 		return result;
 	}
 	
-/** Stub. Initially dice are selected at random. */
-	private boolean[] selectDice(int[] dice) {
-		boolean[] result = new boolean[N_DICE];
-		for (int i = 0; i < dice.length; i++) {
-			result[i] = rgen.nextBoolean();
-		}
-		return result;
-	}
+	
+	/* generate dice combinations from selection */
+	
+	
+	
+	
+	
 	
 /** Creates a list of all possible dice combinations */
-	/* Code here is not currently generalizeable for N_DICE. Need to fix. */
+	/* Code here is not currently generalizeable for N_DICE. Need to fix. 
+	 * May need to scrap pending investigation of AI inefficiency 
+	*/
 	private void generateAllDiceCombinations() {
 		
 		for (int d1 = 1; d1 <= 6; d1++) {
@@ -213,6 +214,9 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 		
 		return categoryIndex;
 	}
+	
+	
+	//private Map<String, DiceCombination> <-----------------------------------------------
 	
 	
 /**
