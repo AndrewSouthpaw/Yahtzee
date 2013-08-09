@@ -22,13 +22,6 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 		display = new YahtzeeDisplay(getGCanvas(), playerNames);
 		playGame();
-		/*
-		String response = dialog.readLine("Would you like to play again?");
-		if(response.startsWith("Y") || response.startsWith("y")) {
-			clearBoard();
-			run();
-		}
-		*/	
 		display.printMessage("Thanks for playing!");
 	}
 
@@ -70,7 +63,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
  * @param player The player whose turn it is (index base 1)
  * @param round The round number
  */
-	private void playTurn(int player, int round) {
+	public void playTurn(int player, int round) {
 		display.printMessage("It is " + playerNames[player - 1] + "'s turn.");
 		int[] dice = new int[N_DICE];
 		display.waitForPlayerToClickRoll(player);
@@ -85,9 +78,10 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			display.printMessage("Yahtzee!");
 			pause(DELAY);
 		}
-		display.printMessage("You are done rolling. Please choose a category.");
-		int category = chooseCategory(player, dice);
-		int score = calculateCategoryScore(category, dice);
+		CategoryResult result = chooseCategory(player, dice);
+		int category = result.getCategory();
+		boolean isValid = result.isValid();
+		int score = calculateCategoryScore(category, isValid, dice);
 		updateScore(player, category, score);
 	}
 	
@@ -108,28 +102,33 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 /**
  * Gets a category selection from the user. If the category will produce a score of 0, the user is cautioned
  * and offered a chance to change the selection.
+ * @param player The player number (index base 1)
  * @param dice The set of dice
- * @return A category selection
+ * @return A CategoryResult that stores the category selection and whether it is valid
  */
-	private int chooseCategory(int player, int[] dice) {
+	private CategoryResult chooseCategory(int player, int[] dice) {
+		CategoryResult result = new CategoryResult();
 		int category = 0;
+		int categoryConfirm = 0;
 		while (true) {
-			category = display.waitForPlayerToSelectCategory();
+			display.printMessage("You are done rolling. Please choose a category.");
+			if (categoryConfirm == 0) category = display.waitForPlayerToSelectCategory();
+			boolean b = isDiceValidForCategory(dice, category);
+			result.setValid(b);
 			if (categoryHasBeenChosen[category][player]) {
 				display.printMessage("You have already chosen this category. Please choose a different one.");
 			} else {
-				boolean b = isDiceValidForCategory(dice, category);
-				if (b) {
-					break;
-				}
+				if (b) break;
 				display.printMessage("You will get a 0 for this category. " +
 						"Click again to confirm, or choose another category.");
-				int categoryConfirm = display.waitForPlayerToSelectCategory();
+				categoryConfirm = display.waitForPlayerToSelectCategory();
 				if (category == categoryConfirm) break;
+				category = categoryConfirm;
 			}
 		}
 		categoryHasBeenChosen[category][player] = true;
-		return category;
+		result.setCategory(category);
+		return result;
 	}
 	
 /**
@@ -162,9 +161,8 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
  * @param dice The set of dice
  * @return The score
  */
-	private int calculateCategoryScore(int category, int[] dice) {
-		boolean b = isDiceValidForCategory(dice, category);
-		if (b) {
+	private int calculateCategoryScore(int category, boolean isValid, int[] dice) {
+		if (isValid) {
 			switch (category) {
 				case ONES:
 				case TWOS:
@@ -352,11 +350,8 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 		return result;
 	}
-		
-/* Private constants */
-
-/** Delay for special messages */
-	private static final int DELAY = 2000;
+	
+	
 	
 /* Private instance variables */
 	
@@ -376,7 +371,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	private YahtzeeDisplay display;
 	
 /** Random number generator */
-	private RandomGenerator rgen = new RandomGenerator();
+	private final RandomGenerator rgen = RandomGenerator.getInstance();
 	
 /** Dialog for user inputs */
 	private IODialog dialog = getDialog();
