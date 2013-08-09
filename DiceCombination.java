@@ -2,8 +2,6 @@
  * The DiceCombination class stores a unique dice combination for Yahtzee. It contains
  * information associated with the dice combination: the probability of achieving the combination,
  * the best category number and score possible, and the expected value of the combination.
- * 
- * v1 snapshot 2013-07-02 17:20. About to update probability calculation to be by permutation.
  */
 
 import java.util.*;
@@ -38,25 +36,25 @@ public class DiceCombination implements YahtzeeConstants {
  * @param dice The current dice
  * @param cat The highest-scoring category
  * @param sc The score for the category
+ * @param selectedDice The dice selection for reroll
  */
-	public void updateCombination(int[] dice, int cat, int sc) {
+	public void updateCombination(int[] dice, int cat, int sc, boolean[] selectedDice) {
 		category = cat;
 		score = sc;
-		updateProbability(dice);
+		updateProbability(selectedDice);
 		eValue = probability * (double) score; 
 	}
 	
 /**
  * Updates the probability of getting the combination given the current dice.
- * @param dice The current dice
+ * @param diceSelections The dice selections for reroll
  */
-	public void updateProbability(int[] dice) {
-		int nonmatches = 0;
-		boolean[] nonmatchingDice = getNonmatchingDiceForReroll(dice);
-		for(int i = 0; i < nonmatchingDice.length; i++) {
-			if (nonmatchingDice[i] == true) nonmatches++;
+	private void updateProbability(boolean[] diceSelections) {
+		int diceRerolled = 0;
+		for (int i = 0; i < diceSelections.length; i++) {
+			if (diceSelections[i] == true) diceRerolled++;
 		}
-		probability = Math.pow(1.0 / 6.0, nonmatches);
+		probability = Math.pow(1.0 / 6.0, diceRerolled);
 		
 	}
 	
