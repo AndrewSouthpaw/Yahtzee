@@ -2,8 +2,6 @@
  * Provides the methods for a Yahtzee computer player.
  * 
  * Debugging: set as own program.
- * 
- * v4 created 2013-07-02 17:42. Cleaning up the AI program.
  */
 
 import acm.program.*;
@@ -66,11 +64,6 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 			println("Rolling dice...");
 			pause(delay);
 			rollDice(rolls, dice, selectedDice);
-			/*
-			dice[0] = dice[1] = dice[2] = dice[3] = 6;
-			dice[4] = 5;
-			*/
-			//display.displayDice(dice);
 			println("Dice for roll " + rolls + ": " + diceToString(dice));
 			if (rolls == MAX_ROLLS - 1) break;
 			DiceSelection bestSelection = null;
@@ -90,52 +83,15 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 					diceCombo.updateCombination(dice, category, score, selectedDice);
 					double eValue = diceCombo.getEValue();
 					selectionCombo.addEValue(eValue);
-					/*
-					if(name.equals("falsefalsefalsefalsetrue") || name.equals("falsefalsetruefalsefalse") ||
-							name.equals("truefalsefalsefalsetrue")) {
-						println("Evalue dice combo " + diceCombo.getName() + " is: " + diceCombo.getEValue());
-					}
-					*/
 				}
-				/*
-				println("Evalue of: " + selectionsToString(selectionCombo.getDiceSelection()) + " is " +
-						selectionCombo.getEValue());
-				*/
 				if (selectionCombo.getEValue() > bestEValue) {
 					bestSelection = selectionCombo;
 					bestEValue = selectionCombo.getEValue();
 				}
 			}
 			println("The best selection to choose is: " + bestSelection.getName());
-			println("The evalue for this selection is: " + bestSelection.getEValue());
+			//println("The evalue for this selection is: " + bestSelection.getEValue());
 			selectedDice = bestSelection.getDiceSelection();
-			
-			
-			/*String bestCombo = "";
-			double bestEValue = -1.0;
-			for(String name: combos.keySet()) {
-				DiceCombination combo = combos.get(name);
-				int[] comboDice = combo.getCombination();
-				int category = chooseBestCategory(player, comboDice);
-				boolean isValid = isDiceValidForCategory(comboDice, category);
-				int score = calculateCategoryScore(category, isValid, comboDice);
-				combo.updateCombination(dice, category, score);
-				double eValue = combo.getEValue();
-				if (eValue > bestEValue) {
-					bestCombo = name;
-					bestEValue = eValue;
-				}
-			}
-			println("The best combination to aim for: " + combos.get(bestCombo).getName());
-			println("The probability of achieving this combo: " + combos.get(bestCombo).getProbability());
-			println("The best category: " + combos.get(bestCombo).getCategory());
-			println("The score for this category is: " + combos.get(bestCombo).getScore());
-			println("The best evalue: " + combos.get(bestCombo).getEValue());
-			selectedDice = combos.get(bestCombo).getNonmatchingDiceForReroll(dice);
-			println("Selections for next roll: " + selectionsToString(selectedDice));
-			
-			*/
-			
 		}
 		println("Turn is over.");
 		int category = chooseBestCategory(player, dice);
@@ -146,14 +102,6 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 		int score = calculateCategoryScore(category, isValid, dice);
 		println("Score for this category: " + score);
 		updateScore(player, category, score);
-		
-		/*
-		CategoryResult result = chooseCategory(player, dice);
-		int category = result.getCategory();
-		boolean isValid = result.isValid();
-		int score = calculateCategoryScore(category, isValid, dice);
-		updateScore(player, category, score);
-		*/
 	}
 	
 /**
@@ -182,22 +130,10 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 		return result;
 	}
 	
-	private String selectionsToString(boolean[] selections) {
-		String result = "[ ";
-		for (int i = 0; i < selections.length; i++) {
-			result += selections[i] + " ";
-		}
-		result += "]";
-		return result;
-	}
-	
-	
-	/* generate dice combinations from selection */
-	
-	/** Creates a set of all combinations of dice selections.
+	/** 
+	 * 	Creates a set of all combinations of dice selections.
 	 * 	USAGE NOTE: not currently generalizable for N_DICE.
 	 */
-	
 	private void generateAllDiceSelections() {
 		for (int d0 = 0; d0 <= 1; d0++) {
 			for (int d1 = 0; d1 <= 1; d1++) {
@@ -260,38 +196,6 @@ public class YahtzeeAI extends ConsoleProgram implements YahtzeeConstants {
 		}
 		return result;
 	}
-	
-	
-	
-/** Creates a list of all possible dice combinations */
-	/* Code here is not currently generalizeable for N_DICE. Need to fix. 
-	 * May need to scrap pending investigation of AI inefficiency 
-	*/
-	private void generateAllDiceCombinations() {
-		
-		for (int d1 = 1; d1 <= 6; d1++) {
-			for (int d2 = d1; d2 <= 6; d2++) {
-				for (int d3 = d2; d3 <= 6; d3++) {
-					for (int d4 = d3; d4 <= 6; d4++) {
-						for (int d5 = d4; d5 <= 6; d5++) {
-							int[] arr = new int[N_DICE];
-							arr[0] = d1;
-							arr[1] = d2;
-							arr[2] = d3;
-							arr[3] = d4;
-							arr[4] = d5;
-							DiceCombination combo = new DiceCombination(arr);
-							combos.put(combo.getName(), combo);
-						}
-					}
-				}
-			}
-		}
-		
-	}
-	
-	
-	
 	
 	
 /** Selects the highest scoring category */
